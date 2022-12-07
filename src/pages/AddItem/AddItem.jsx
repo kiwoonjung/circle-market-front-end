@@ -13,7 +13,9 @@ export default function AddItem() {
         <div className="addItem__btn-container">
           <button className="addItem__btn">Upload Pictures</button>
         </div>
+      </form>
 
+      <form>
         <div className="addItem__title-container">
           <label className="addItem__title-label">
             Title
