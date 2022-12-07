@@ -1,0 +1,19 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 2rem 0rem 2rem;
+
+  &__logo {
+    display: flex;
+    width: 11.25rem;
+    height: 1.875rem;
+  }
+
+  &__icon {
+    display: flex;
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,210 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.login-logo {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 0 2.5rem 0;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.login {
+  &__input-container {
+    padding: 0rem 3rem 1rem 3rem;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+  }
+
+  &__input-user {
+    width: 100%;
+    height: 2rem;
+    border-radius: 2rem;
+    border: 0.0625rem solid $cloud;
+    margin-top: 0.5rem;
+    background: url("../../assets/images/icons/user.svg");
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    background-position-y: 50%;
+    background-position-x: 4%;
+    padding: 0 2rem 0 2rem;
+    box-sizing: border-box;
+  }
+
+  &__input-pw {
+    width: 100%;
+    height: 2rem;
+    border-radius: 2rem;
+    border: 0.0625rem solid $cloud;
+    margin-top: 0.5rem;
+    background: url("../../assets/images/icons/lock.svg");
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    background-position-y: 50%;
+    background-position-x: 4%;
+    padding: 0 2rem 0 2rem;
+    box-sizing: border-box;
+  }
+
+  &__forgot {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 3rem;
+    font-size: 0.7rem;
+  }
+
+  &__btn-container {
+    padding: 3rem 3rem 0 3rem;
+  }
+
+  &__btn {
+    width: 100%;
+    height: 2.5rem;
+    color: $white;
+    font-weight: 900;
+    border-radius: 2rem;
+    background: linear-gradient(to right, #61d9de, #e739f5);
+    border: hidden;
+  }
+}
+
+.or {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0 3rem 0;
+  font-weight: 600;
+}
+
+.mail {
+  display: flex;
+  justify-content: center;
+  padding: 0 3rem 0.5rem 3rem;
+
+  &__btn {
+    width: 100%;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    padding: 0.75rem 1rem 0.75rem 2.625rem;
+    border: none;
+    border-radius: 0.1875rem;
+    box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+      0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
+
+    color: #757575;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+    background-image: url("../../assets/images/icons/sign-mail.svg");
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 0.8rem 0.6rem;
+    background-size: 1.5rem;
+
+    &:hover {
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+      background-color: #eeeeee;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25), 0 0 0 0.1875rem #c8dafc;
+    }
+  }
+}
+
+.google {
+  display: flex;
+  justify-content: center;
+  padding: 0 3rem 0.5rem 3rem;
+
+  &__btn {
+    width: 100%;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    padding: 0.75rem 1rem 0.75rem 2.625rem;
+    border: none;
+    border-radius: 0.1875rem;
+    box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+      0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
+
+    color: #757575;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+    background-image: url("../../assets/images/icons/sign-google.svg");
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 0.8rem 0.6rem;
+    background-size: 1.5rem;
+
+    &:hover {
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+      background-color: #eeeeee;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25), 0 0 0 0.1875rem #c8dafc;
+    }
+  }
+}
+
+.facebook {
+  display: flex;
+  justify-content: center;
+  padding: 0 3rem 5rem 3rem;
+
+  &__btn {
+    width: 100%;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+    padding: 0.75rem 1rem 0.75rem 2.625rem;
+    border: none;
+    border-radius: 0.1875rem;
+    box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+      0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
+
+    color: #757575;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+    background-image: url("../../assets/images/icons/sign-facebook.svg");
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 0.5rem 0.3rem;
+    background-size: 2rem;
+
+    &:hover {
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+      background-color: #eeeeee;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25), 0 0 0 0.1875rem #c8dafc;
+    }
+  }
+}
