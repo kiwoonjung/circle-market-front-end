@@ -1,0 +1,32 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.comment-list-wrapper {
+  padding: 2rem 2rem 2rem 2rem;
+}
+
+.comment-list {
+  display: flex;
+  &__avatar-container {
+    padding-right: 1rem;
+  }
+  &__default-avatar {
+    background-image: url("../../assets/images/icons/default_profile.svg");
+    background-size: cover;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  &__description {
+    margin-top: -0.6rem;
+    padding-left: 3.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.0625rem solid $cloud;
+  }
+}

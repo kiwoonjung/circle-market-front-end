@@ -1,5 +1,7 @@
 import "./Login.scss";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -43,9 +45,9 @@ export default function Login() {
         <div className="or">OR</div>
 
         <div className="mail">
-          <button className="mail__btn" type="button">
+          <Link to="/sign-up" className="mail__btn" type="button">
             Sign in with Email
-          </button>
+          </Link>
         </div>
 
         <div className="google">
@@ -60,6 +62,7 @@ export default function Login() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
