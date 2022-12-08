@@ -11,7 +11,7 @@ export default function AddItem() {
           <div className="addItem__img"></div>
         </div>
         <div className="addItem__btn-container">
-          <button className="addItem__btn">Upload Pictures</button>
+          <button className="addItem__btn-upload">Upload Pictures</button>
         </div>
       </form>
 
@@ -22,7 +22,6 @@ export default function AddItem() {
             <input className="addItem__title-input" type="text" />
           </label>
         </div>
-
         <div className="addItem__category-container">
           <label className="addItem__category-label">
             Category
@@ -87,6 +86,10 @@ export default function AddItem() {
               rows="10"
             ></textarea>
           </label>
+        </div>
+
+        <div className="addItem__btn-container">
+          <button className="addItem__btn-post">POST</button>
         </div>
       </form>
 

@@ -19,9 +19,9 @@
     padding-right: 2rem;
   }
 
-  &__btn {
+  &__btn-upload {
     width: 9rem;
-    height: 1.5rem;
+    height: 2rem;
     color: $white;
     font-weight: 600;
     border-radius: 2rem;
@@ -79,5 +79,15 @@
     resize: none;
     box-sizing: border-box;
     padding: 1rem;
+  }
+
+  &__btn-post {
+    width: 6rem;
+    height: 2rem;
+    color: $white;
+    font-weight: 600;
+    border-radius: 2rem;
+    background: linear-gradient(to right, #61d9de, #e739f5);
+    border: hidden;
   }
 }
