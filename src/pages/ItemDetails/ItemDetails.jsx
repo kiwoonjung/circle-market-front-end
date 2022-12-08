@@ -37,6 +37,7 @@ export default function ItemDetails() {
 
       <div className="title-container">
         <div>iPhone XR 256GB</div>
+        <div>$340</div>
       </div>
 
       <div className="category-container">
