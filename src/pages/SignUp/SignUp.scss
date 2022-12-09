@@ -4,7 +4,7 @@
 .signup-logo {
   display: flex;
   justify-content: center;
-  padding: 2.5rem 0 2.5rem 0;
+  padding: 6rem 0 2.5rem 0;
   font-size: 2rem;
   font-weight: 800;
 }
@@ -104,5 +104,10 @@
     border-radius: 2rem;
     background: linear-gradient(to right, #61d9de, #e739f5);
     border: hidden;
+
+    &:hover {
+      box-shadow: 0 -0.0625rem 0 rgba(0, 0, 0, 0.04),
+        0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
   }
 }

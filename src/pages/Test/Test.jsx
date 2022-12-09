@@ -1,19 +1,13 @@
-import "../Header/Header.scss";
-// import menu from "../../assets/images/icons/menu.svg";
-// import user from "../../assets/images/icons/user.svg";
-// import { Link } from "react-router-dom";
+import "./Test.scss";
 
-export default function Header() {
+export default function Test() {
   return (
-    <div className="header-wrapper">
-      <div className="header-container">
+    <div className="mobile-wrapper">
+      <div className="mobile-container">
         <div className="content">
           <nav className="header-nav">
-            <div className="header-logo">
-              <div>Logo</div>
-            </div>
             <input className="header-input" type="checkbox" id="hamburger1" />
-            <label className="header-label" for="hamburger1"></label>
+            <label className="header-label" htmlfor="" for="hamburger1"></label>
 
             <ul className="nav-links">
               <li className="nav-li">
