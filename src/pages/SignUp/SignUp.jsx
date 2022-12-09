@@ -8,7 +8,6 @@ import Error from "../../assets/images/icons/error.svg";
 const { v4: uuid } = require("uuid");
 
 export default function SignUp() {
-  const API_URL = process.env.REACT_APP_SERVER_URL;
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -21,6 +20,12 @@ export default function SignUp() {
   const [userpassword_Error, setUserpassword_Error] = useState("");
   const [confirmPassword_Error, setConfirmPassword_Error] = useState("");
 
+  function validatecontact_email(user_email) {
+    const re =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]*$/;
+    return re.test(user_email);
+  }
+
   useEffect(() => {
     if (username !== "") {
       setUsername_Error(null);
@@ -30,7 +35,7 @@ export default function SignUp() {
   }, [username]);
 
   useEffect(() => {
-    if (useremail !== "") {
+    if (validatecontact_email(useremail) !== false) {
       setUseremail_Error(null);
     } else {
       setUseremail_Error(true);
@@ -53,11 +58,13 @@ export default function SignUp() {
     }
   }, [confirmPassword]);
 
-  function validatecontact_email(user_email) {
-    const re =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]*$/;
-    return re.test(user_email);
-  }
+  useEffect(() => {
+    if (validatecontact_email(useremail) !== false) {
+      setUseremail_Error(null);
+    } else {
+      setUseremail_Error(true);
+    }
+  }, [useremail]);
 
   function handleSignUp(event) {
     event.preventDefault();
@@ -69,14 +76,13 @@ export default function SignUp() {
       confirmPassword_Error === true
     ) {
     } else {
-      axios.post(`${API_URL}/userdata`, {
-        id: uuid(),
-        username: username,
-        useremail: useremail,
-        userpassword: userpassword,
+      axios.post("http://localhost:8080/use", {
+        email: useremail,
+        name: username,
+        password: userpassword,
       });
-      alert("Warehouse Added!");
-      navigate("/");
+      alert("New user Added!");
+      navigate("/login");
     }
   }
 
@@ -109,7 +115,7 @@ export default function SignUp() {
               <label className="signup__label">
                 Username
                 <input
-                  onChange={(e) => setUserpassword(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   className="signup__input-user"
                   type="text"
                   name="username"
