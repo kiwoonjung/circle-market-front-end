@@ -18,22 +18,22 @@ export default function Header() {
             <ul className="nav-links">
               <li className="nav-li">
                 <a className="nav-a" href="#">
-                  about us
+                  LOGIN
                 </a>
               </li>
               <li className="nav-li">
                 <a className="nav-a" href="#">
-                  products
+                  MY PROFILE
                 </a>
               </li>
               <li className="nav-li">
                 <a className="nav-a" href="#">
-                  media
+                  ADD POST
                 </a>
               </li>
               <li className="nav-li">
                 <a className="nav-a" href="#">
-                  contact us
+                  LOGOUT
                 </a>
               </li>
             </ul>
