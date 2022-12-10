@@ -76,7 +76,7 @@ export default function SignUp() {
       confirmPassword_Error === true
     ) {
     } else {
-      axios.post("http://localhost:8080/use", {
+      axios.post("http://localhost:8080/api/auth/signup", {
         email: useremail,
         name: username,
         password: userpassword,
@@ -100,7 +100,7 @@ export default function SignUp() {
                   onChange={(e) => setUseremail(e.target.value)}
                   className="signup__input-email"
                   type="text"
-                  name="username"
+                  name="useremail"
                 />
                 {useremail_Error && (
                   <div className="signup__error-wrp">
@@ -136,7 +136,7 @@ export default function SignUp() {
                   onChange={(e) => setUserpassword(e.target.value)}
                   className="signup__input-pw"
                   type="password"
-                  name="password"
+                  name="userpassword"
                 />
                 {userpassword_Error && (
                   <div className="signup__error-wrp">

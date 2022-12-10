@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   /*
@@ -30,14 +30,15 @@ export default function Login() {
    */
   const loadProfile = (jwtToken) => {
     axios
-      .get(`http://localhost:8080/users`, {
+      .get(`http://localhost:8080/api/auth/signup"`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
       })
       .then((response) => {
-        setLoggedIn(true);
-        setUser(response.data.user);
+        console.log(response);
+        // setLoggedIn(true);
+        // setUser(response.data.user);
       })
       .catch((error) => {
         console.log(error);
@@ -52,12 +53,13 @@ export default function Login() {
   const handleLogin = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:8080/users/login`, {
+      .post(`http://localhost:8080/api/auth/signin`, {
         email: event.target.email.value,
         password: event.target.password.value,
       })
       .then((response) => {
-        if (response.data.token) {
+        console.log(response);
+        if (response.data.accessToken) {
           loadProfile(response.data.token); // loadProfile, get user object
           localStorage.setItem("jwt_token", response.data.token);
         }
