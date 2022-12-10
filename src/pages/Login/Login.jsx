@@ -15,35 +15,37 @@ export default function Login() {
    * Component Mount, check if localStorage has JWT token
    * if token exists verify JWT and login user
    */
-  useEffect(() => {
-    const jwtToken = localStorage.getItem("jwt_token");
-    // if JWT token exists try to load the user profile, user object
-    if (jwtToken) {
-      loadProfile(jwtToken);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem("jwt_token");
+  //   // if JWT token exists try to load the user profile, user object
+  //   if (jwtToken) {
+  //     loadProfile(jwtToken);
+  //   }
+  // }, []);
 
   /*
    * Get user data
    * send JWT token as part of request headers
    * token is decoded on the server and if valid sends back a user object
    */
-  const loadProfile = (jwtToken) => {
-    axios
-      .get(`http://localhost:8080/api/auth/signup"`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        // setLoggedIn(true);
-        // setUser(response.data.user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const loadProfile = (jwtToken) => {
+  //   if (jwtToken) {
+  //     axios
+  //       .get(`http://localhost:8080/api/circlemarket_db/users"`, {
+  //         headers: {
+  //           Authorization: `Bearer ${jwtToken}`,
+  //         },
+  //       })
+  //       .then((response) => {
+  //         console.log(response);
+  //         // setLoggedIn(true);
+  //         // setUser(response.data.user);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // };
 
   /*
    * Login function
@@ -58,10 +60,10 @@ export default function Login() {
         password: event.target.password.value,
       })
       .then((response) => {
-        console.log(response);
         if (response.data.accessToken) {
-          loadProfile(response.data.token); // loadProfile, get user object
-          localStorage.setItem("jwt_token", response.data.token);
+          // loadProfile(response.data.accessToken); // loadProfile, get user object
+          localStorage.setItem("jwt_token", response.data.accessToken);
+          console.log(response.data)
         }
       })
       .catch((error) => {
