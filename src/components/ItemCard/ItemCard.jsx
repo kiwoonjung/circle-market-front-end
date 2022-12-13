@@ -1,22 +1,29 @@
 import "./ItemCard.scss";
 import iPhone from "../../assets/images/list/iPhoneXR-1.jpeg";
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function ItemList(props) {
   const { item_id } = useParams();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/post/add")
+  const [posts, setPosts] = useState([]);
+
+  //FIND ALL POSTS in POST DATABASE
+  const getPosts = async () => {
+    await axios
+      .get("http://localhost:8080/api/post/findAll")
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        setPosts(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [item_id]);
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <div>
@@ -39,6 +46,18 @@ export default function ItemList(props) {
             <div>$340</div>
           </div>
         </Link>
+
+        {/* posts in map */}
+        {posts.map((post, i) => {
+          return (
+            <div key={i}>
+              <img className="item__img-container" src={post.imageUrl} alt="" />
+              <p>{post.title}</p>
+              <p>{post.address}</p>
+              <p>{post.price}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

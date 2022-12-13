@@ -15,7 +15,7 @@ export default function Header() {
               </div>
             </Link>
             <input className="header-input" type="checkbox" id="hamburger1" />
-            <label className="header-label" for="hamburger1"></label>
+            <label className="header-label" htmlFor="hamburger1"></label>
 
             <ul className="nav-links">
               <li className="nav-li">
