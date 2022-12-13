@@ -1,7 +1,7 @@
 import "./Home.scss";
 import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
-import ItemList from "../../components/ItemList/ItemList";
+import ItemCard from "../../components/ItemCard/ItemCard";
 import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
     <div>
       <Header />
       <Search />
-      <ItemList />
+      <ItemCard />
       <Footer />
     </div>
   );
