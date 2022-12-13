@@ -17,11 +17,15 @@ export default function AddItem() {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [address, setAddress] = useState("");
+  const [condition, setCondition] = useState("");
 
   const [title_Error, setTitle_Error] = useState("");
   const [category_Error, setCategory_Error] = useState("");
   const [price_Error, setPrice_Error] = useState("");
   const [description_Error, setDescription_Error] = useState("");
+  const [address_Error, setAddress_Error] = useState("");
+  const [condition_Error, setCondition_Error] = useState("");
 
   useEffect(() => {
     console.log(images[0]);
@@ -82,7 +86,9 @@ export default function AddItem() {
       title_Error === true ||
       category_Error === true ||
       price_Error === true ||
-      description_Error === true
+      description_Error === true ||
+      address_Error === true ||
+      condition_Error === true
     ) {
     } else {
       const formData = new FormData();
@@ -91,6 +97,8 @@ export default function AddItem() {
       formData.append("category", category);
       formData.append("price", price);
       formData.append("description", description);
+      formData.append("address", address);
+      formData.append("condition", condition);
 
       axios
         .post("http://localhost:8080/api/post/add", formData, {
@@ -150,7 +158,6 @@ export default function AddItem() {
               <select
                 onChange={(e) => setCategory(e.target.value)}
                 className="addItem__category-select"
-                type="text"
                 name="category"
               >
                 <option value="Antiques">Antiques</option>
@@ -211,6 +218,44 @@ export default function AddItem() {
                 type="text"
                 name="price"
               />
+            </label>
+          </div>
+        </div>
+
+        <div className="addItem__second-container">
+          <div className="addItem__category-container">
+            <label className="addItem__category-label">
+              Address
+              <select
+                onChange={(e) => setAddress(e.target.value)}
+                name="address"
+                className="addItem__category-select"
+              >
+                <option value="Vancouver">Vancouver</option>
+                <option value="Nortn Vancouver">North Vancouver</option>
+                <option value="Downtown">Downtown</option>
+                <option value="Richmond">Richmond</option>
+                <option value="Burnaby">Burnaby</option>
+                <option value="Coquitlam">Coquitlam</option>
+                <option value="Surrey">Surrey</option>
+                <option value="Langley">Langley</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="addItem__price-container">
+            <label className="addItem__price-label">
+              Condition
+              <select
+                onChange={(e) => setCondition(e.target.value)}
+                name="condition"
+                className="addItem__category-select"
+              >
+                <option value="New">New</option>
+                <option value="Used Like New">Used - Like New</option>
+                <option value="Used - Good">Used - Good</option>
+                <option value="Used - Fair">Used - Fair</option>
+              </select>
             </label>
           </div>
         </div>

@@ -9,7 +9,7 @@ export default function AddComment() {
             <div className="comment__default-avatar"></div>
           </div>
           <label className="comment__label">
-            CONTACT TO THE SELLER
+            Comment
             <textarea className="comment__input" type="text" />
           </label>
         </div>
