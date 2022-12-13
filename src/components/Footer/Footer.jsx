@@ -8,14 +8,21 @@ export default function Footer() {
     <div>
       <div className="footer__logo">
         <div>
-          <img src={facebook} alt="facebook-logo" />
-        </div>
-        <div>
-          <img src={instagram} alt="instagram-logo" />
+          <a href="https://www.facebook.com/">
+            <img src={facebook} alt="facebook-logo" />
+          </a>
         </div>
 
         <div>
-          <img src={twitter} alt="twitter-logo" />
+          <a href="https://www.instagram.com/">
+            <img src={instagram} alt="instagram-logo" />
+          </a>
+        </div>
+
+        <div>
+          <a href="https://twitter.com/">
+            <img src={twitter} alt="twitter-logo" />
+          </a>
         </div>
       </div>
 

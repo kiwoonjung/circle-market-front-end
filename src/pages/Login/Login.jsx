@@ -2,56 +2,13 @@ import "./Login.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Login() {
-  // const [loggedIn, setLoggedIn] = useState(false);
-  // const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  /*
-   * Component Mount, check if localStorage has JWT token
-   * if token exists verify JWT and login user
-   */
-  // useEffect(() => {
-  //   const jwtToken = localStorage.getItem("jwt_token");
-  //   // if JWT token exists try to load the user profile, user object
-  //   if (jwtToken) {
-  //     loadProfile(jwtToken);
-  //   }
-  // }, []);
-
-  /*
-   * Get user data
-   * send JWT token as part of request headers
-   * token is decoded on the server and if valid sends back a user object
-   */
-  // const loadProfile = (jwtToken) => {
-  //   if (jwtToken) {
-  //     axios
-  //       .get(`http://localhost:8080/api/circlemarket_db/users"`, {
-  //         headers: {
-  //           Authorization: `Bearer ${jwtToken}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         // setLoggedIn(true);
-  //         // setUser(response.data.user);
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // };
-
-  /*
-   * Login function
-   * post email and password to server
-   * returns JWT if login success
-   */
   const handleLogin = (event) => {
     event.preventDefault();
     axios
@@ -61,9 +18,10 @@ export default function Login() {
       })
       .then((response) => {
         if (response.data.accessToken) {
-          // loadProfile(response.data.accessToken); // loadProfile, get user object
           localStorage.setItem("jwt_token", response.data.accessToken);
-          console.log(response.data)
+          console.log(response.data);
+          navigate("/");
+          alert("Welcom username");
         }
       })
       .catch((error) => {
