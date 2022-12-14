@@ -39,7 +39,7 @@ export default function ItemList() {
                   src={`http://localhost:8080/${post.imageUrl}`}
                 />
               </div>
-              <div>{post.title}</div>
+              <div className="item__title">{post.title}</div>
               <div>{post.address}</div>
               <div>${post.price}</div>
             </Link>

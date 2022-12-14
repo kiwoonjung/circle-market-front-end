@@ -37,14 +37,6 @@ export default function AddItem() {
     setImages([...event.target.files]);
   }
 
-  // useEffect(() => {
-  //   if (image !== "") {
-  //     setImage_Error(null);
-  //   } else {
-  //     setImage_Error(true);
-  //   }
-  // }, [image]);
-
   useEffect(() => {
     if (title !== "") {
       setTitle_Error(null);
@@ -243,7 +235,7 @@ export default function AddItem() {
           <div className="addItem__second-container">
             <div className="addItem__category-container">
               <label className="addItem__category-label">
-                Address
+                Location
                 <select
                   onChange={(e) => setAddress(e.target.value)}
                   name="address"
