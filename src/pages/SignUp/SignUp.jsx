@@ -87,93 +87,103 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <Header />
-      <div>
-        <div className="signup-logo">Sign Up</div>
+    <div className="addItem-background">
+      <div className="addItem-wrapper">
+        <Header />
         <div>
-          <form className="signup" onSubmit={handleSignUp}>
-            <div className="signup__input-container">
-              <label className="signup__label">
-                Email
-                <input
-                  onChange={(e) => setUseremail(e.target.value)}
-                  className="signup__input-email"
-                  type="text"
-                  name="useremail"
-                />
-                {useremail_Error && (
-                  <div className="signup__error-wrp">
-                    <img className="signup__error-img" src={Error} alt="" />
-                    <p className="signup__error-text">This field is required</p>
-                  </div>
-                )}
-              </label>
-            </div>
+          <div className="signup-logo">Sign Up</div>
+          <div>
+            <form className="signup" onSubmit={handleSignUp}>
+              <div className="signup__input-container">
+                <label className="signup__label">
+                  Email
+                  <input
+                    onChange={(e) => setUseremail(e.target.value)}
+                    className="signup__input-email"
+                    type="text"
+                    name="useremail"
+                  />
+                  {useremail_Error && (
+                    <div className="signup__error-wrp">
+                      <img className="signup__error-img" src={Error} alt="" />
+                      <p className="signup__error-text">
+                        This field is required
+                      </p>
+                    </div>
+                  )}
+                </label>
+              </div>
 
-            <div className="signup__input-container">
-              <label className="signup__label">
-                Username
-                <input
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="signup__input-user"
-                  type="text"
-                  name="username"
-                />
-                {username_Error && (
-                  <div className="signup__error-wrp">
-                    <img className="signup__error-img" src={Error} alt="" />
-                    <p className="signup__error-text">This field is required</p>
-                  </div>
-                )}
-              </label>
-            </div>
+              <div className="signup__input-container">
+                <label className="signup__label">
+                  Username
+                  <input
+                    onChange={(e) => setUsername(e.target.value)}
+                    className="signup__input-user"
+                    type="text"
+                    name="username"
+                  />
+                  {username_Error && (
+                    <div className="signup__error-wrp">
+                      <img className="signup__error-img" src={Error} alt="" />
+                      <p className="signup__error-text">
+                        This field is required
+                      </p>
+                    </div>
+                  )}
+                </label>
+              </div>
 
-            <div className="signup__input-container">
-              <label className="signup__label">
-                Password
-                <input
-                  onChange={(e) => setUserpassword(e.target.value)}
-                  className="signup__input-pw"
-                  type="password"
-                  name="userpassword"
-                />
-                {userpassword_Error && (
-                  <div className="signup__error-wrp">
-                    <img className="signup__error-img" src={Error} alt="" />
-                    <p className="signup__error-text">This field is required</p>
-                  </div>
-                )}
-              </label>
-            </div>
+              <div className="signup__input-container">
+                <label className="signup__label">
+                  Password
+                  <input
+                    onChange={(e) => setUserpassword(e.target.value)}
+                    className="signup__input-pw"
+                    type="password"
+                    name="userpassword"
+                  />
+                  {userpassword_Error && (
+                    <div className="signup__error-wrp">
+                      <img className="signup__error-img" src={Error} alt="" />
+                      <p className="signup__error-text">
+                        This field is required
+                      </p>
+                    </div>
+                  )}
+                </label>
+              </div>
 
-            <div className="signup__input-container">
-              <label className="signup__label">
-                Confirm Password
-                <input
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="signup__input-confirm-pw"
-                  type="password"
-                  name="confirm-password"
-                />
-                {confirmPassword_Error && (
-                  <div className="signup__error-wrp">
-                    <img className="signup__error-img" src={Error} alt="" />
-                    <p className="signup__error-text">This field is required</p>
-                  </div>
-                )}
-              </label>
-            </div>
+              <div className="signup__input-container">
+                <label className="signup__label">
+                  Confirm Password
+                  <input
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    className="signup__input-confirm-pw"
+                    type="password"
+                    name="confirm-password"
+                  />
+                  {confirmPassword_Error && (
+                    <div className="signup__error-wrp">
+                      <img className="signup__error-img" src={Error} alt="" />
+                      <p className="signup__error-text">
+                        This field is required
+                      </p>
+                    </div>
+                  )}
+                </label>
+              </div>
 
-            <div className="signup__btn-container">
-              <button className="signup__btn" type="submit">
-                SIGN UP
-              </button>
-            </div>
-          </form>
+              <div className="signup__btn-container">
+                <button className="signup__btn" type="submit">
+                  SIGN UP
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

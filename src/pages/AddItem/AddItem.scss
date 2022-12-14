@@ -1,6 +1,24 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+.addItem-background {
+  background-image: url("../../assets/images/background/page-backgroud.jpg");
+  background-size: cover;
+}
+
+.addItem-wrapper {
+  background-color: $white;
+
+  @include tablet {
+    margin: 0rem 8rem 0rem 8rem;
+  }
+
+  @include desktop {
+    max-width: 1280px;
+    margin: 0rem 25rem 0rem 25rem;
+  }
+}
+
 .addItem {
   &__img-container {
     padding: 6rem 2rem 1rem 2rem;
@@ -46,15 +64,18 @@
 
   &__second-container {
     display: flex;
+    gap: 2rem;
   }
 
   &__category-container {
-    padding: 0 2rem 0.5rem 2rem;
+    padding-left: 2rem;
+    width: 50%;
   }
 
   &__category-label {
-    display: grid;
-    width: 10rem;
+    // display: grid;
+    // width: 10rem;
+    width: 100%;
   }
 
   &__category-select {
@@ -69,6 +90,7 @@
   &__price-container {
     display: flex;
     padding-right: 2rem;
+    width: 50%;
   }
 
   &__price-label {

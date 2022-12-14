@@ -1,6 +1,23 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+.login-background {
+  background-image: url("../../assets/images/background/page-backgroud.jpg");
+  background-size: cover;
+}
+
+.login-wrapper {
+  background-color: $white;
+
+  @include tablet {
+    margin: 0rem 13rem 0rem 13rem;
+  }
+
+  @include desktop {
+    margin: 0rem 25rem 0rem 25rem;
+  }
+}
+
 .login-logo {
   display: flex;
   justify-content: center;
