@@ -4,7 +4,6 @@ import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const { v4: uuid } = require("uuid");
 
 export default function AddItem() {
   const navigate = useNavigate();
@@ -28,7 +27,6 @@ export default function AddItem() {
   const [condition_Error, setCondition_Error] = useState("");
 
   useEffect(() => {
-    console.log(images[0]);
     if (images.length < 1) return;
     const newImageUrls = [];
     images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
@@ -137,9 +135,9 @@ export default function AddItem() {
       <Header />
       <form onSubmit={handlePost}>
         <div className="addItem__img-container">
-          {imagesURLs.map((imageSrc) => (
+          {imagesURLs.map((imageSrc, i) => (
             <img
-              id={uuid}
+              key={i}
               className="addItem__img"
               src={imageSrc}
               alt={imageSrc.name}
@@ -297,7 +295,6 @@ export default function AddItem() {
           </button>
         </div>
       </form>
-
       <Footer />
     </div>
   );

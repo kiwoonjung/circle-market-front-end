@@ -18,7 +18,6 @@ export default function ItemDetails() {
     await axios
       .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
       .then((response) => {
-        console.log(response.data);
         setItem(response.data[0]);
       })
       .catch((err) => {
