@@ -1,34 +1,39 @@
-import "./AddItem.scss";
+import "./EditItem.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 const { v4: uuid } = require("uuid");
 
-export default function AddItem() {
+export default function EditItem() {
+  const [item, setItem] = useState({});
+  const { id } = useParams();
+
+  const getSinglePost = async () => {
+    await axios
+      .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
+      .then((response) => {
+        // console.log(response.data[0]);
+        setItem(response.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getSinglePost();
+  }, []);
+
   const navigate = useNavigate();
 
   const [images, setImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
-
   // const [image, setImage] = useState("");
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [address, setAddress] = useState("");
-  const [condition, setCondition] = useState("");
-
-  const [title_Error, setTitle_Error] = useState("");
-  const [category_Error, setCategory_Error] = useState("");
-  const [price_Error, setPrice_Error] = useState("");
-  const [description_Error, setDescription_Error] = useState("");
-  const [address_Error, setAddress_Error] = useState("");
-  const [condition_Error, setCondition_Error] = useState("");
 
   useEffect(() => {
-    console.log(images[0]);
     if (images.length < 1) return;
     const newImageUrls = [];
     images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
@@ -39,112 +44,48 @@ export default function AddItem() {
     setImages([...event.target.files]);
   }
 
-  // useEffect(() => {
-  //   if (image !== "") {
-  //     setImage_Error(null);
-  //   } else {
-  //     setImage_Error(true);
-  //   }
-  // }, [image]);
-
-  useEffect(() => {
-    if (title !== "") {
-      setTitle_Error(null);
-    } else {
-      setTitle_Error(true);
-    }
-  }, [title]);
-
-  useEffect(() => {
-    if (category !== "") {
-      setCategory_Error(null);
-    } else {
-      setCategory_Error(true);
-    }
-  }, [category]);
-
-  useEffect(() => {
-    if (price !== "") {
-      setPrice_Error(null);
-    } else {
-      setPrice_Error(true);
-    }
-  }, [price]);
-
-  useEffect(() => {
-    if (description !== "") {
-      setDescription_Error(null);
-    } else {
-      setDescription_Error(true);
-    }
-  }, [description]);
-
-  useEffect(() => {
-    if (address !== "") {
-      setAddress_Error(null);
-    } else {
-      setAddress_Error(true);
-    }
-  }, [address]);
-
-  useEffect(() => {
-    if (condition !== "") {
-      setCondition_Error(null);
-    } else {
-      setCondition_Error(true);
-    }
-  }, [condition]);
-
-  function handlePost(event) {
+  function handleEdit(event) {
     event.preventDefault();
 
-    if (
-      title_Error === true ||
-      category_Error === true ||
-      price_Error === true ||
-      description_Error === true ||
-      address_Error === true ||
-      condition_Error === true
-    ) {
-      alert("Please Complete the Form");
-    } else {
-      const formData = new FormData();
-      formData.append("images", images[0]);
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("price", price);
-      formData.append("description", description);
-      formData.append("address", address);
-      formData.append("condition", condition);
+    console.log(event.target.image.src);
+    // console.log(event.target.title.value);
 
-      axios
-        .post("http://localhost:8080/api/post/add", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      alert("New post Added!");
-      navigate("/");
-    }
+    let editFormSubmit = {
+      imageUrl: event.target.image.src,
+      title: event.target.title.value,
+    };
+
+    axios
+      .put(`http://localhost:8080/api/post/editItem/${id}`, editFormSubmit)
+      .then((response) => {
+        console.log(response);
+        alert("Post Edited!");
+        // navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
     <div>
       <Header />
-      <form onSubmit={handlePost}>
+      <form onSubmit={handleEdit}>
         <div className="addItem__img-container">
-          {imagesURLs.map((imageSrc) => (
+          <img
+            name="image"
+            className="addItem__img"
+            src={`http://localhost:8080/${item.imageUrl}`}
+            alt={item.imageUrl}
+          />
+          {/* {imagesURLs.map((imageSrc) => (
             <img
               id={uuid}
               className="addItem__img"
               src={imageSrc}
-              alt={imageSrc.name}
+              alt={item.imageUrl}
             />
-          ))}
+          ))} */}
         </div>
         <div className="addItem__btn-container">
           <input
@@ -160,10 +101,11 @@ export default function AddItem() {
           <label className="addItem__title-label">
             Title
             <input
-              onChange={(e) => setTitle(e.target.value)}
+              defaultValue={item.title}
               className="addItem__title-input"
               type="text"
               name="title"
+              id="title"
             />
           </label>
         </div>
@@ -173,7 +115,7 @@ export default function AddItem() {
             <label className="addItem__category-label">
               Category
               <select
-                onChange={(e) => setCategory(e.target.value)}
+                defaultValue={item.category}
                 className="addItem__category-select"
                 name="category"
               >
@@ -230,7 +172,7 @@ export default function AddItem() {
             <label className="addItem__price-label">
               Price
               <input
-                onChange={(e) => setPrice(e.target.value)}
+                defaultValue={item.price}
                 className="addItem__price-input"
                 type="text"
                 name="price"
@@ -244,7 +186,7 @@ export default function AddItem() {
             <label className="addItem__category-label">
               Address
               <select
-                onChange={(e) => setAddress(e.target.value)}
+                defaultValue={item.address}
                 name="address"
                 className="addItem__category-select"
               >
@@ -264,7 +206,8 @@ export default function AddItem() {
             <label className="addItem__price-label">
               Condition
               <select
-                onChange={(e) => setCondition(e.target.value)}
+                defaultValue={item.condition}
+                // onChange={(e) => setCondition(e.target.value)}
                 name="condition"
                 className="addItem__category-select"
               >
@@ -278,10 +221,10 @@ export default function AddItem() {
         </div>
 
         <div className="addItem__description-container">
-          <label className="addItem__description-label">
+          <label>
             Description
             <textarea
-              onChange={(e) => setDescription(e.target.value)}
+              defaultValue={item.description}
               className="addItem__description-textarea"
               type="text"
               name="description"
@@ -293,7 +236,7 @@ export default function AddItem() {
 
         <div className="addItem__btn-container">
           <button className="addItem__btn-post" type="submit">
-            POST
+            Edit
           </button>
         </div>
       </form>
