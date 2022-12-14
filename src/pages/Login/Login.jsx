@@ -39,68 +39,70 @@ export default function Login() {
   // };
 
   return (
-    <div>
-      <Header />
-      <div>
-        <div className="login-logo">Login</div>
+    <div className="login-background">
+      <div className="login-wrapper">
+        <Header />
         <div>
-          <form className="login" onSubmit={handleLogin}>
-            <div className="login__input-container">
-              <label className="login__label">
-                Useremail
-                <input
-                  className="login__input-user"
-                  type="email"
-                  name="email"
-                />
-              </label>
-            </div>
+          <div className="login-logo">Login</div>
+          <div>
+            <form className="login" onSubmit={handleLogin}>
+              <div className="login__input-container">
+                <label className="login__label">
+                  Useremail
+                  <input
+                    className="login__input-user"
+                    type="email"
+                    name="email"
+                  />
+                </label>
+              </div>
 
-            <div className="login__input-container">
-              <label className="login__label">
-                Password
-                <input
-                  className="login__input-pw"
-                  type="password"
-                  name="password"
-                />
-              </label>
-            </div>
+              <div className="login__input-container">
+                <label className="login__label">
+                  Password
+                  <input
+                    className="login__input-pw"
+                    type="password"
+                    name="password"
+                  />
+                </label>
+              </div>
 
-            <div className="login__forgot">Forgot Password?</div>
-            <div className="login__btn-container">
-              <button
-                onClick={navigate("/")}
-                className="login__btn"
-                type="submit"
-              >
-                LOGIN
-              </button>
-            </div>
-          </form>
+              <div className="login__forgot">Forgot Password?</div>
+              <div className="login__btn-container">
+                <button
+                  onClick={navigate("/")}
+                  className="login__btn"
+                  type="submit"
+                >
+                  LOGIN
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div className="or">OR</div>
+
+          <div className="mail">
+            <Link to="/sign-up" className="mail__btn" type="button">
+              Sign in with Email
+            </Link>
+          </div>
+
+          <div className="google">
+            <button className="google__btn" type="button">
+              Sign in with Google
+            </button>
+          </div>
+
+          <div className="facebook">
+            <button className="facebook__btn" type="button">
+              Sign in with Facebook
+            </button>
+          </div>
         </div>
-
-        <div className="or">OR</div>
-
-        <div className="mail">
-          <Link to="/sign-up" className="mail__btn" type="button">
-            Sign in with Email
-          </Link>
-        </div>
-
-        <div className="google">
-          <button className="google__btn" type="button">
-            Sign in with Google
-          </button>
-        </div>
-
-        <div className="facebook">
-          <button className="facebook__btn" type="button">
-            Sign in with Facebook
-          </button>
-        </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

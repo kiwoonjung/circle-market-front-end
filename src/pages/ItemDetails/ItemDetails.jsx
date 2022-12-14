@@ -29,70 +29,76 @@ export default function ItemDetails() {
   }, []);
 
   return (
-    <div>
-      <Header />
-      <div className="itemDetails__img-container">
-        <img
-          className="itemDetails__img"
-          src={`http://localhost:8080/${item.imageUrl}`}
-          alt={item.imageUrl}
-        />
-      </div>
+    <div className="addItem-background">
+      <div className="addItem-wrapper">
+        <Header />
+        <div className="itemDetails__img-container">
+          <img
+            className="itemDetails__img"
+            src={`http://localhost:8080/${item.imageUrl}`}
+            alt={item.imageUrl}
+          />
+        </div>
 
-      <div className="user-wrapper">
-        <div className="user-info">
-          <div className="user-info__avatar-container">
-            <div className="user-info__default-avatar"></div>
-          </div>
-
-          <div className="user-info__container">
-            <div>
-              <div>Domo</div>
-              <div>Vancouver</div>
+        <div className="user-wrapper">
+          <div className="user-info">
+            <div className="user-info__avatar-container">
+              <div className="user-info__default-avatar"></div>
             </div>
 
-            <div>
-              <div>★★★★★</div>
-              <div>Circle Lv 1</div>
+            <div className="user-info__container">
+              <div>
+                <div>Domo</div>
+                <div>Vancouver</div>
+              </div>
+
+              <div>
+                <div>★★★★★</div>
+                <div>Circle Lv 1</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="title-container">
-        <div>{item.title}</div>
-        <div>{item.price}</div>
-      </div>
-
-      <div className="category-container">
-        <div>{item.category}</div>
-        <div>{item.timestamp}</div>
-      </div>
-
-      <div className="description-container">
-        <div>{item.description}</div>
-      </div>
-
-      <div className="description__icon-container">
-        <div className="description__icon-group">
-          <img className="description__icon" src={like} alt="like.svg" />
-          <div className="description__text">78</div>
+        <div className="title-container">
+          <div>{item.title}</div>
+          <div>${item.price}</div>
         </div>
 
-        <div className="description__icon-group">
-          <img className="description__icon" src={comment} alt="comment.svg" />
-          <div className="description__text">12</div>
+        <div className="category-container">
+          <div>{item.category}</div>
+          <div>{item.timestamp}</div>
         </div>
 
-        <div className="description__icon-group">
-          <img className="description__icon" src={view} alt="view.svg" />
-          <div className="description__text">167</div>
+        <div className="description-container">
+          <div>{item.description}</div>
         </div>
+
+        <div className="description__icon-container">
+          <div className="description__icon-group">
+            <img className="description__icon" src={like} alt="like.svg" />
+            <div className="description__text">78</div>
+          </div>
+
+          <div className="description__icon-group">
+            <img
+              className="description__icon"
+              src={comment}
+              alt="comment.svg"
+            />
+            <div className="description__text">12</div>
+          </div>
+
+          <div className="description__icon-group">
+            <img className="description__icon" src={view} alt="view.svg" />
+            <div className="description__text">167</div>
+          </div>
+        </div>
+
+        <AddComment />
+        <CommentList />
+        <Footer />
       </div>
-
-      <AddComment />
-      <CommentList />
-      <Footer />
     </div>
   );
 }

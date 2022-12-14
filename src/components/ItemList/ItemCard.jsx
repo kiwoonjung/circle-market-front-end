@@ -1,5 +1,4 @@
 import "./ItemCard.scss";
-import iPhone from "../../assets/images/list/iPhoneXR-1.jpeg";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -42,7 +41,7 @@ export default function ItemList() {
               </div>
               <div>{post.title}</div>
               <div>{post.address}</div>
-              <div>{post.price}</div>
+              <div>${post.price}</div>
             </Link>
           );
         })}
