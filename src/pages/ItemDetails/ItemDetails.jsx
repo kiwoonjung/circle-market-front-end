@@ -6,13 +6,38 @@ import Header from "../../components/Header/Header";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function ItemDetails() {
+  const [item, setItem] = useState({});
+  const { id } = useParams();
+
+  const getSinglePost = async () => {
+    await axios
+      .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        setItem(response.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getSinglePost();
+  }, []);
+
   return (
     <div>
       <Header />
       <div className="itemDetails__img-container">
-        <div className="itemDetails__img"></div>
+        <img
+          className="itemDetails__img"
+          src={`http://localhost:8080/${item.imageUrl}`}
+          alt={item.imageUrl}
+        />
       </div>
 
       <div className="user-wrapper">
@@ -36,27 +61,17 @@ export default function ItemDetails() {
       </div>
 
       <div className="title-container">
-        <div>iPhone XR 256GB</div>
-        <div>$340</div>
+        <div>{item.title}</div>
+        <div>{item.price}</div>
       </div>
 
       <div className="category-container">
-        <div>Eletrics</div>
-        <div>12-07-2022</div>
+        <div>{item.category}</div>
+        <div>{item.timestamp}</div>
       </div>
 
       <div className="description-container">
-        <div>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using 'Content here, content here', making it
-          look like readable English. Many desktop publishing packages and web
-          page editors now use Lorem Ipsum as their default model text, and a
-          search for 'lorem ipsum' will uncover many web sites still in their
-          infancy. Various versions have evolved over the years, sometimes by
-          accident, sometimes on purpose (injected humour and the like).
-        </div>
+        <div>{item.description}</div>
       </div>
 
       <div className="description__icon-container">
