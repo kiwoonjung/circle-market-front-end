@@ -46,6 +46,14 @@
   justify-content: space-between;
 }
 
+.title-content {
+  width: 10rem;
+
+  @include tablet {
+    width: 100%;
+  }
+}
+
 .category-container {
   display: flex;
   justify-content: space-between;
@@ -58,8 +66,13 @@
   padding-bottom: 1.5rem;
 }
 
+.description-content {
+  white-space: pre-wrap;
+}
+
 .description {
   &__icon-container {
+    align-items: center;
     display: flex;
     justify-content: flex-start;
     padding-left: 2rem;
@@ -78,4 +91,15 @@
   &__text {
     font-size: 0.8rem;
   }
+}
+
+.chat-btn {
+  width: 8rem;
+  height: 2rem;
+  color: $white;
+  font-weight: 600;
+  border-radius: 2rem;
+  background: black;
+  border: hidden;
+  margin-left: 1.6rem;
 }

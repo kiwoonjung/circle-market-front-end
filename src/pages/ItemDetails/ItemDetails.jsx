@@ -61,7 +61,7 @@ export default function ItemDetails() {
         </div>
 
         <div className="title-container">
-          <div>{item.title}</div>
+          <div className="title-content">{item.title}</div>
           <div>${item.price}</div>
         </div>
 
@@ -71,13 +71,13 @@ export default function ItemDetails() {
         </div>
 
         <div className="description-container">
-          <div>{item.description}</div>
+          <div className="description-content">{item.description}</div>
         </div>
 
         <div className="description__icon-container">
           <div className="description__icon-group">
             <img className="description__icon" src={like} alt="like.svg" />
-            <div className="description__text">78</div>
+            <div className="description__text">68</div>
           </div>
 
           <div className="description__icon-group">
@@ -86,13 +86,15 @@ export default function ItemDetails() {
               src={comment}
               alt="comment.svg"
             />
-            <div className="description__text">12</div>
+            <div className="description__text">21</div>
           </div>
 
           <div className="description__icon-group">
             <img className="description__icon" src={view} alt="view.svg" />
-            <div className="description__text">167</div>
+            <div className="description__text">179</div>
           </div>
+
+          <button className="chat-btn">Chat with Seller</button>
         </div>
 
         <AddComment />
