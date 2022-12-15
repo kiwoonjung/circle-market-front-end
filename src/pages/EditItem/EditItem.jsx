@@ -5,17 +5,16 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-const { v4: uuid } = require("uuid");
 
 export default function EditItem() {
-  const [item, setItem] = useState({});
+  const navigate = useNavigate();
   const { id } = useParams();
-
+  const [item, setItem] = useState({});
+  const [newImage, setNewImage] = useState(item);
   const getSinglePost = async () => {
     await axios
       .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
       .then((response) => {
-        // console.log(response.data[0]);
         setItem(response.data[0]);
       })
       .catch((err) => {
@@ -27,38 +26,19 @@ export default function EditItem() {
     getSinglePost();
   }, []);
 
-  const navigate = useNavigate();
-
-  const [images, setImages] = useState([]);
-  const [imagesURLs, setImagesURLs] = useState([]);
-  // const [image, setImage] = useState("");
-
-  useEffect(() => {
-    if (images.length < 1) return;
-    const newImageUrls = [];
-    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
-    setImagesURLs(newImageUrls);
-  }, [images]);
-
-  function onImageChange(event) {
-    setImages([...event.target.files]);
-  }
 
   function handleEdit(event) {
     event.preventDefault();
-
-    console.log(event.target.image.src);
-    // console.log(event.target.title.value);
-
+    console.log(newImage.filename);
     let editFormSubmit = {
-      // imageUrl: event.target.image.src,
+      imageUrl: "/uploads/" + newImage.filename,
       title: event.target.title.value,
     };
 
     axios
       .put(`http://localhost:8080/api/post/editItem/${id}`, editFormSubmit)
       .then((response) => {
-        console.log(response);
+        console.log(editFormSubmit);
         alert("Post Edited!");
         // navigate("/");
       })
@@ -73,28 +53,21 @@ export default function EditItem() {
         <Header />
         <form onSubmit={handleEdit}>
           <div className="addItem__img-container">
-            <img
-              name="image"
-              className="addItem__img"
-              src={`http://localhost:8080/${item.imageUrl}`}
-              alt={item.imageUrl}
-            />
-            {/* {imagesURLs.map((imageSrc) => (
-            <img
-              id={uuid}
-              className="addItem__img"
-              src={imageSrc}
-              alt={item.imageUrl}
-            />
-          ))} */}
+              <img
+                name="image"
+                className="addItem__img"
+                src={`http://localhost:8080/${item.imageUrl}`}
+                alt={item.title}
+              />
           </div>
           <div className="addItem__btn-container">
             <input
               className="addItem__btn-upload"
               type="file"
-              multiple
               accept="image/*"
-              onChange={onImageChange}
+              onChange={(event)=>{
+                setNewImage(event.target.files[0])
+              }}
             />
           </div>
 
