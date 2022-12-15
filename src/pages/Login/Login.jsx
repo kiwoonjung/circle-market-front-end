@@ -21,7 +21,6 @@ export default function Login() {
           localStorage.setItem("jwt_token", response.data.accessToken);
           console.log(response.data);
           navigate("/");
-          alert("Welcom username");
         }
       })
       .catch((error) => {

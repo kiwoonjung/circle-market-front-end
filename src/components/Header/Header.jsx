@@ -1,11 +1,14 @@
 import "../Header/Header.scss";
 import { Link } from "react-router-dom";
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
 
   /*
@@ -27,7 +30,7 @@ export default function Header() {
    */
   const loadProfile = (jwtToken) => {
     axios
-      .get("http://localhost:8080/api/auth/users", {
+      .get("http://localhost:8080/api/auth/findAllUsers", {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -36,10 +39,18 @@ export default function Header() {
         setLoggedIn(true);
         setUser(response.data[0].name);
         setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
+        setUserId(response.data[0]._id);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setUser(null);
+    setUserAvatar("");
+    localStorage.removeItem("jwt_token");
   };
 
   return (
@@ -52,29 +63,47 @@ export default function Header() {
                 <div>Logo</div>
               </div>
             </Link>
-            <div className="header-user-container">
-              <div className="header-avatar-container">
-                <img
-                  className="user-avatar"
-                  src={userAvatar}
-                  alt="user-avatar"
-                />
+
+            {!loggedIn ? (
+              <div></div>
+            ) : (
+              <div className="header-user-container">
+                <div className="header-avatar-container">
+                  <img className="user-avatar" src={userAvatar} />
+                </div>
+                <div className="header-user">{user}</div>
               </div>
-              <div className="header-user">{user}</div>
-            </div>
+            )}
+
             <input className="header-input" type="checkbox" id="hamburger1" />
             <label className="header-label" htmlFor="hamburger1"></label>
 
             <ul className="nav-links">
+              {!loggedIn ? (
+                <li className="nav-li">
+                  <Link to="/login">
+                    <div className="nav-a">LOGIN</div>
+                  </Link>
+                </li>
+              ) : (
+                <li className="nav-li">
+                  <button
+                    className="nav-a"
+                    onClick={() => {
+                      handleLogout();
+                      navigate("/");
+                    }}
+                  >
+                    LOGOUT
+                  </button>
+                </li>
+              )}
               <li className="nav-li">
-                <Link to="/login">
-                  <div className="nav-a">LOGIN</div>
+                <Link to={`profile/${userId}`}>
+                  <div className="nav-a" href="#">
+                    MY PROFILE
+                  </div>
                 </Link>
-              </li>
-              <li className="nav-li">
-                <a className="nav-a" href="#">
-                  MY PROFILE
-                </a>
               </li>
               <li className="nav-li">
                 <Link to="/add-item">
@@ -82,11 +111,6 @@ export default function Header() {
                     ADD POST
                   </div>
                 </Link>
-              </li>
-              <li className="nav-li">
-                <a className="nav-a" href="#">
-                  LOGOUT
-                </a>
               </li>
             </ul>
           </nav>

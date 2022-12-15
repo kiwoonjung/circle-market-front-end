@@ -16,7 +16,7 @@ export default function ItemDetails() {
 
   const getSinglePost = async () => {
     await axios
-      .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
+      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
       .then((response) => {
         setItem(response.data[0]);
       })
