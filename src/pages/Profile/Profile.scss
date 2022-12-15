@@ -1,0 +1,13 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.profile {
+  &__avatar-container {
+    padding: 6rem 2rem 1rem 2rem;
+  }
+  &__avatar {
+    width: 100%;
+    border: 0.0625rem solid $cloud;
+    border-radius: 10rem;
+  }
+}

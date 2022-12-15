@@ -11,7 +11,7 @@ export default function ItemList() {
   //FIND ALL POSTS in POST DATABASE
   const getPosts = async () => {
     await axios
-      .get("http://localhost:8080/api/post/findAll")
+      .get("http://localhost:8080/api/post/findAllPosts")
       .then((response) => {
         setPosts(response.data);
       })
