@@ -69,7 +69,11 @@ export default function Header() {
             ) : (
               <div className="header-user-container">
                 <div className="header-avatar-container">
-                  <img className="user-avatar" src={userAvatar} />
+                  <img
+                    className="user-avatar"
+                    src={userAvatar}
+                    alt="userAvatar"
+                  />
                 </div>
                 <div className="header-user">{user}</div>
               </div>
@@ -99,18 +103,26 @@ export default function Header() {
                 </li>
               )}
               <li className="nav-li">
-                <Link to={`profile/${userId}`}>
-                  <div className="nav-a" href="#">
-                    MY PROFILE
-                  </div>
-                </Link>
+                {!loggedIn ? (
+                  <div></div>
+                ) : (
+                  <Link to={`/profile/${userId}`}>
+                    <div className="nav-a" href="#">
+                      MY PROFILE
+                    </div>
+                  </Link>
+                )}
               </li>
               <li className="nav-li">
-                <Link to="/add-item">
-                  <div className="nav-a" href="#">
-                    ADD POST
-                  </div>
-                </Link>
+                {!loggedIn ? (
+                  <div></div>
+                ) : (
+                  <Link to="/add-item">
+                    <div className="nav-a" href="#">
+                      ADD POST
+                    </div>
+                  </Link>
+                )}
               </li>
             </ul>
           </nav>
