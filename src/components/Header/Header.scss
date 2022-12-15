@@ -45,6 +45,28 @@ a {
     font-size: 1.5rem;
   }
 
+  .header-user-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .header-avatar-container {
+    padding-right: 0.5rem;
+  }
+
+  .user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .header-user {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 4rem;
+  }
+
   .nav-links {
     display: block;
     position: absolute;
