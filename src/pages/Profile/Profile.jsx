@@ -1,12 +1,14 @@
 import "./Profile.scss";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [userAvatar, setUserAvatar] = useState("");
+  const [lists, setLists] = useState([]);
 
   const { id } = useParams();
 
@@ -26,42 +28,55 @@ export default function Profile() {
     getSingleUser();
   }, []);
 
-  useEffect(() => {
-    const jwtToken = localStorage.getItem("jwt_token");
-    // if JWT token exists try to load the user profile, user object
-    if (jwtToken) {
-      loadProfile(jwtToken);
-    }
-  }, []);
-
-  /*
-   * Get user data
-   * send JWT token as part of request headers
-   * token is decoded on the server and if valid sends back a user object
-   */
-  const loadProfile = (jwtToken) => {
-    axios
-      .get("http://localhost:8080/api/auth/findAllUsers", {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+  const getPostsByUserId = async () => {
+    await axios
+      .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
       .then((response) => {
-        getSingleUser();
+        setLists(response.data);
+        console.log(response.data[0]);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
+  useEffect(() => {
+    getPostsByUserId();
+  }, []);
 
   return (
     <div>
       <Header />
-      <div className="profile">
-        <div className="profile__avatar-container">
-          <img className="profile__avatar" src={userAvatar} />
+      <div className="profile-background">
+        <div className="profile-wrapper">
+          <div className="profile">
+            <div className="profile__avatar-container">
+              <img className="profile__avatar" src={userAvatar} />
+            </div>
+            <div className="profile__username">{user}</div>
+          </div>
+
+          <div className="mylist">
+            {/* lists in map */}
+            {lists.map((list, i) => {
+              return (
+                <Link key={i} to={`/item-details/${list._id}`}>
+                  <div className="mylist__img-container" key={i}>
+                    <img
+                      className="mylist__img"
+                      src={`http://localhost:8080/${list.imageUrl}`}
+                    />
+
+                    <div className="mylist__title">{list.title}</div>
+                    <div>{list.address}</div>
+                    <div>${list.price}</div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          <Footer />
         </div>
-        <div>{user}</div>
       </div>
     </div>
   );

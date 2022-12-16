@@ -1,13 +1,85 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+.profile-wrapper {
+  background-color: $white;
+
+  @include tablet {
+    margin: 0rem 12rem 0rem 12rem;
+  }
+
+  @include desktop {
+    margin: 0rem 25rem 0rem 25rem;
+  }
+}
+
+.profile-background {
+  background-image: url("../../assets/images/background/page-backgroud.jpg");
+  background-size: cover;
+}
+
 .profile {
   &__avatar-container {
     padding: 6rem 2rem 1rem 2rem;
   }
+
   &__avatar {
     width: 100%;
     border: 0.0625rem solid $cloud;
-    border-radius: 10rem;
+    border-radius: 16rem;
+  }
+
+  &__username {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.mylist {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 11.0625rem);
+  grid-template-rows: 1fr;
+  padding: 1rem 0 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include tablet {
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+  }
+
+  @include desktop {
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    padding-right: 13rem;
+    padding-left: 13rem;
+  }
+
+  &__img {
+    width: 10.3125rem;
+    height: 9.3125rem;
+    margin-bottom: 0.5rem;
+    object-fit: cover;
+    top: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    box-shadow: 0px 0.125rem 0.3125rem rgb(19 24 44 / 50%);
+  }
+
+  &__img-container {
+    width: 100%;
+    height: auto;
+    min-width: 6.25rem;
+    min-height: 6.25rem;
+
+    border-radius: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    width: 185px;
   }
 }
