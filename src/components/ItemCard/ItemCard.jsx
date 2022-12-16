@@ -34,7 +34,7 @@ export default function ItemCard() {
               <div className="item__img-container" key={i}>
                 <img
                   className="item__img"
-                  src={`http://localhost:8080/${post.imageUrl}`}
+                  src={`http://localhost:8080${post.imageUrl}`}
                 />
 
                 <div className="item__title">{post.title}</div>

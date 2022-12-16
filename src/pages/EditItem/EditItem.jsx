@@ -13,7 +13,7 @@ export default function EditItem() {
   const [newImage, setNewImage] = useState(item);
   const getSinglePost = async () => {
     await axios
-      .get(`http://localhost:8080/api/post/findOneRequest/${id}`)
+      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
       .then((response) => {
         setItem(response.data[0]);
       })
@@ -29,7 +29,6 @@ export default function EditItem() {
 
   function handleEdit(event) {
     event.preventDefault();
-    console.log(newImage.filename);
     let editFormSubmit = {
       imageUrl: "/uploads/" + newImage.filename,
       title: event.target.title.value,
@@ -56,7 +55,7 @@ export default function EditItem() {
               <img
                 name="image"
                 className="addItem__img"
-                src={`http://localhost:8080/${item.imageUrl}`}
+                src={`http://localhost:8080${item.imageUrl}`}
                 alt={item.title}
               />
           </div>
@@ -67,6 +66,7 @@ export default function EditItem() {
               accept="image/*"
               onChange={(event)=>{
                 setNewImage(event.target.files[0])
+                console.log(event.target.files[0])
               }}
             />
           </div>

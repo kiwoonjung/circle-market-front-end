@@ -196,7 +196,6 @@ export default function AddItem() {
               <label className="addItem__category-label">
                 Location
                 <select
-                  onChange={(e) => setAddress(e.target.value)}
                   name="address"
                   className="addItem__category-select"
                 >
