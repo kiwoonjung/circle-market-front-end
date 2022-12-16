@@ -14,7 +14,6 @@ export default function AddItem() {
   const [images, setImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
 
-  // const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
@@ -117,10 +116,6 @@ export default function AddItem() {
         console.log(error);
       });
   };
-
-  // useEffect(() => {
-  //   loadProfile();
-  // }, []);
 
   function handlePost(event) {
     event.preventDefault();
