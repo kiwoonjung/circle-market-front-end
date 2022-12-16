@@ -32,8 +32,7 @@
     justify-content: space-between;
   }
 
-  &__default-avatar {
-    background-image: url("../../assets/images/icons/default_profile.svg");
+  &__avatar {
     background-size: cover;
     width: 2.5rem;
     height: 2.5rem;
@@ -102,4 +101,8 @@
   background: black;
   border: hidden;
   margin-left: 1.6rem;
+}
+
+.description-second {
+  display: flex;
 }

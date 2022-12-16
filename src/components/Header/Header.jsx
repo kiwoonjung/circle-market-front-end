@@ -2,6 +2,7 @@ import "../Header/Header.scss";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 export default function Header() {
@@ -29,8 +30,10 @@ export default function Header() {
    * token is decoded on the server and if valid sends back a user object
    */
   const loadProfile = (jwtToken) => {
+    const decode = jwt_decode(jwtToken);
+
     axios
-      .get("http://localhost:8080/api/auth/findAllUsers", {
+      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },

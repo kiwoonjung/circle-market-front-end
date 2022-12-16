@@ -3,10 +3,13 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 export default function AddItem() {
   const navigate = useNavigate();
+
+  const [userId, setUserId] = useState("");
 
   const [images, setImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
@@ -85,6 +88,40 @@ export default function AddItem() {
     }
   }, [condition]);
 
+  useEffect(() => {
+    const jwtToken = localStorage.getItem("jwt_token");
+    // if JWT token exists try to load the user profile, user object
+    if (jwtToken) {
+      loadProfile(jwtToken);
+    }
+  }, []);
+
+  /*
+   * Get user data
+   * send JWT token as part of request headers
+   * token is decoded on the server and if valid sends back a user object
+   */
+  const loadProfile = (jwtToken) => {
+    const decode = jwt_decode(jwtToken);
+
+    axios
+      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
+      .then((response) => {
+        setUserId(response.data[0]._id);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // useEffect(() => {
+  //   loadProfile();
+  // }, []);
+
   function handlePost(event) {
     event.preventDefault();
 
@@ -100,12 +137,15 @@ export default function AddItem() {
     } else {
       const formData = new FormData();
       formData.append("images", images[0]);
+      formData.append("userid", userId);
       formData.append("title", title);
       formData.append("category", category);
       formData.append("price", price);
       formData.append("description", description);
       formData.append("address", address);
       formData.append("condition", condition);
+
+      console.log(formData);
 
       axios
         .post("http://localhost:8080/api/post/add", formData, {
@@ -145,6 +185,10 @@ export default function AddItem() {
               accept="image/*"
               onChange={onImageChange}
             />
+          </div>
+
+          <div className="user-hidden">
+            <input type="hidden" value={userId} />
           </div>
 
           <div className="addItem__title-container">

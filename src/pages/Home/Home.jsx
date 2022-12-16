@@ -1,7 +1,7 @@
 import "./Home.scss";
 import Header from "../../components/Header/Header";
 import Search from "../../components/Search/Search";
-import ItemCard from "../../components/ItemList/ItemCard";
+import ItemCard from "../../components/ItemCard/ItemCard";
 import Footer from "../../components/Footer/Footer";
 
 export default function Home() {
