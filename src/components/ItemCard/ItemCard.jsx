@@ -3,9 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function ItemList() {
-  const { item_id } = useParams();
-
+export default function ItemCard() {
   const [posts, setPosts] = useState([]);
 
   //FIND ALL POSTS in POST DATABASE
@@ -26,7 +24,7 @@ export default function ItemList() {
   return (
     <div>
       <div className="list-header">
-        <h3>What's new on the list today</h3>
+        <div className="list-title">What's new on the list today</div>
       </div>
       <div className="item">
         {/* posts in map */}

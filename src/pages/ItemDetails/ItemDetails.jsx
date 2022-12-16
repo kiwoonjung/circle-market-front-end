@@ -12,6 +12,8 @@ import axios from "axios";
 
 export default function ItemDetails() {
   const [item, setItem] = useState({});
+  const [userName, setUserName] = useState();
+  const [userAvatar, setUserAvatar] = useState();
   const { id } = useParams();
 
   const getSinglePost = async () => {
@@ -19,11 +21,26 @@ export default function ItemDetails() {
       .get(`http://localhost:8080/api/post/findOnePost/${id}`)
       .then((response) => {
         setItem(response.data[0]);
+        getSingleUser(response.data[0].userid);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const getSingleUser = async (userId) => {
+    await axios
+      .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+      .then((response) => {
+        setUserName(response.data[0].name);
+        setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
+        console.log(response.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     getSinglePost();
   }, []);
@@ -43,13 +60,17 @@ export default function ItemDetails() {
         <div className="user-wrapper">
           <div className="user-info">
             <div className="user-info__avatar-container">
-              <div className="user-info__default-avatar"></div>
+              <img
+                className="user-info__avatar"
+                src={userAvatar}
+                alt="userAvatar"
+              />
             </div>
 
             <div className="user-info__container">
               <div>
-                <div>Domo</div>
-                <div>Vancouver</div>
+                <div>{userName}</div>
+                <div>{item.address}</div>
               </div>
 
               <div>
@@ -73,28 +94,30 @@ export default function ItemDetails() {
         <div className="description-container">
           <div className="description-content">{item.description}</div>
         </div>
+        <div className="description-second">
+          <div className="description__icon-container">
+            <div className="description__icon-group">
+              <img className="description__icon" src={like} alt="like.svg" />
+              <div className="description__text">68</div>
+            </div>
 
-        <div className="description__icon-container">
-          <div className="description__icon-group">
-            <img className="description__icon" src={like} alt="like.svg" />
-            <div className="description__text">68</div>
+            <div className="description__icon-group">
+              <img
+                className="description__icon"
+                src={comment}
+                alt="comment.svg"
+              />
+              <div className="description__text">21</div>
+            </div>
+
+            <div className="description__icon-group">
+              <img className="description__icon" src={view} alt="view.svg" />
+              <div className="description__text">179</div>
+            </div>
           </div>
-
-          <div className="description__icon-group">
-            <img
-              className="description__icon"
-              src={comment}
-              alt="comment.svg"
-            />
-            <div className="description__text">21</div>
+          <div className="chat-container">
+            <button className="chat-btn">Chat with Seller</button>
           </div>
-
-          <div className="description__icon-group">
-            <img className="description__icon" src={view} alt="view.svg" />
-            <div className="description__text">179</div>
-          </div>
-
-          <button className="chat-btn">Chat with Seller</button>
         </div>
 
         <AddComment />
