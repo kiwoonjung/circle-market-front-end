@@ -12,6 +12,7 @@ import axios from "axios";
 
 export default function ItemDetails() {
   const [item, setItem] = useState({});
+  const [itemImage, setItemImage] = useState();
   const [userName, setUserName] = useState();
   const [userAvatar, setUserAvatar] = useState();
   const { id } = useParams();
@@ -20,6 +21,7 @@ export default function ItemDetails() {
     await axios
       .get(`http://localhost:8080/api/post/findOnePost/${id}`)
       .then((response) => {
+        setItemImage(response.data[0].imageUrl[0].url);
         setItem(response.data[0]);
         getSingleUser(response.data[0].userid);
       })
@@ -33,8 +35,7 @@ export default function ItemDetails() {
       .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
       .then((response) => {
         setUserName(response.data[0].name);
-        setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
-        console.log(response.data[0]);
+        setUserAvatar("http://localhost:8080" + response.data[0].imageUrl.url);
       })
       .catch((err) => {
         console.log(err);
@@ -50,11 +51,7 @@ export default function ItemDetails() {
       <div className="addItem-wrapper">
         <Header />
         <div className="itemDetails__img-container">
-          <img
-            className="itemDetails__img"
-            src={`http://localhost:8080/${item.imageUrl}`}
-            alt={item.imageUrl}
-          />
+          <img className="itemDetails__img" src={itemImage} alt={itemImage} />
         </div>
 
         <div className="user-wrapper">

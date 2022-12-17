@@ -57,29 +57,29 @@ export default function AddItem() {
 
   function handlePost(event) {
     event.preventDefault();
-    console.log(images[0])
-    let addItemForm = {
-      imageUrl: images[0],
-      title: event.target.title.value,
-      category: event.target.category.value,
-      price: event.target.price.value,
-      address: event.target.address.value,
-      condition: event.target.condition.value,
-      description: event.target.description.value,
-    };
+
+    const form = new FormData();
+    for (const image of images) {
+      form.append("files", image);
+    }
+    form.append("userid", userId);
+    form.append("title", event.target.title.value);
+    form.append("category", event.target.category.value);
+    form.append("price", event.target.price.value);
+    form.append("address", event.target.address.value);
+    form.append("condition", event.target.condition.value);
+    form.append("description", event.target.description.value);
 
     axios
-      .post("http://localhost:8080/api/post/add", addItemForm,{
+      .post("http://localhost:8080/api/post/add", form, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
-        alert("New post Added!");
-        navigate("/");
+        console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-
   }
 
   return (
@@ -101,6 +101,7 @@ export default function AddItem() {
             <input
               className="addItem__btn-upload"
               type="file"
+              name="files"
               multiple
               accept="image/*"
               onChange={onImageChange}
@@ -195,10 +196,7 @@ export default function AddItem() {
             <div className="addItem__category-container">
               <label className="addItem__category-label">
                 Location
-                <select
-                  name="address"
-                  className="addItem__category-select"
-                >
+                <select name="address" className="addItem__category-select">
                   <option value="Vancouver">Vancouver</option>
                   <option value="Nortn Vancouver">North Vancouver</option>
                   <option value="Downtown">Downtown</option>
@@ -215,9 +213,7 @@ export default function AddItem() {
               <label className="addItem__price-label">
                 Condition
                 <select name="condition" className="addItem__category-select">
-                  <option value="New">
-                    New
-                  </option>
+                  <option value="New">New</option>
                   <option value="Used Like New">Used - Like New</option>
                   <option value="Used - Good">Used - Good</option>
                   <option value="Used - Fair">Used - Fair</option>
