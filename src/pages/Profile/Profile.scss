@@ -5,11 +5,11 @@
   background-color: $white;
 
   @include tablet {
-    margin: 0rem 12rem 0rem 12rem;
+    margin: 0rem 5rem 0rem 5rem;
   }
 
   @include desktop {
-    margin: 0rem 25rem 0rem 25rem;
+    margin: 0rem 15rem 0rem 15rem;
   }
 }
 
@@ -19,8 +19,12 @@
 }
 
 .profile {
+  display: flex;
+  justify-content: center;
+
   &__avatar-container {
-    padding: 6rem 2rem 1rem 2rem;
+    padding-top: 6rem;
+    width: 10rem;
   }
 
   &__avatar {
@@ -29,9 +33,13 @@
     border-radius: 16rem;
   }
 
-  &__username {
-    display: flex;
-    justify-content: center;
+  &__info {
+    padding-top: 10rem;
+    padding-left: 1rem;
+
+    &--name {
+      padding-bottom: 0.5rem;
+    }
   }
 }
 
@@ -43,17 +51,14 @@
   padding: 1rem 0 0 1rem;
   width: 100%;
   box-sizing: border-box;
+  justify-content: center;
 
   @include tablet {
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
+    grid-template-columns: repeat(3, 11.0625rem);
   }
 
   @include desktop {
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
-    padding-right: 13rem;
-    padding-left: 13rem;
+    grid-template-columns: repeat(4, 11.0625rem);
   }
 
   &__img {
