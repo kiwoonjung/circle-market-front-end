@@ -14,20 +14,6 @@ export default function AddItem() {
   const [images, setImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
 
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [address, setAddress] = useState("");
-  const [condition, setCondition] = useState("");
-
-  const [title_Error, setTitle_Error] = useState("");
-  const [category_Error, setCategory_Error] = useState("");
-  const [price_Error, setPrice_Error] = useState("");
-  const [description_Error, setDescription_Error] = useState("");
-  const [address_Error, setAddress_Error] = useState("");
-  const [condition_Error, setCondition_Error] = useState("");
-
   useEffect(() => {
     if (images.length < 1) return;
     const newImageUrls = [];
@@ -38,54 +24,6 @@ export default function AddItem() {
   function onImageChange(event) {
     setImages([...event.target.files]);
   }
-
-  useEffect(() => {
-    if (title !== "") {
-      setTitle_Error(null);
-    } else {
-      setTitle_Error(true);
-    }
-  }, [title]);
-
-  useEffect(() => {
-    if (category !== "") {
-      setCategory_Error(null);
-    } else {
-      setCategory_Error(true);
-    }
-  }, [category]);
-
-  useEffect(() => {
-    if (price !== "") {
-      setPrice_Error(null);
-    } else {
-      setPrice_Error(true);
-    }
-  }, [price]);
-
-  useEffect(() => {
-    if (description !== "") {
-      setDescription_Error(null);
-    } else {
-      setDescription_Error(true);
-    }
-  }, [description]);
-
-  useEffect(() => {
-    if (address !== "") {
-      setAddress_Error(null);
-    } else {
-      setAddress_Error(true);
-    }
-  }, [address]);
-
-  useEffect(() => {
-    if (condition !== "") {
-      setCondition_Error(null);
-    } else {
-      setCondition_Error(true);
-    }
-  }, [condition]);
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt_token");
@@ -120,41 +58,28 @@ export default function AddItem() {
   function handlePost(event) {
     event.preventDefault();
 
-    if (
-      title_Error === true ||
-      category_Error === true ||
-      price_Error === true ||
-      description_Error === true ||
-      address_Error === true ||
-      condition_Error === true
-    ) {
-      alert("Please Complete the Form");
-    } else {
-      const formData = new FormData();
-      formData.append("images", images[0]);
-      formData.append("userid", userId);
-      formData.append("title", title);
-      formData.append("category", category);
-      formData.append("price", price);
-      formData.append("description", description);
-      formData.append("address", address);
-      formData.append("condition", condition);
-
-      console.log(formData);
-
-      axios
-        .post("http://localhost:8080/api/post/add", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      alert("New post Added!");
-      navigate("/");
+    const form = new FormData();
+    for (const image of images) {
+      form.append("files", image);
     }
+    form.append("userid", userId);
+    form.append("title", event.target.title.value);
+    form.append("category", event.target.category.value);
+    form.append("price", event.target.price.value);
+    form.append("address", event.target.address.value);
+    form.append("condition", event.target.condition.value);
+    form.append("description", event.target.description.value);
+
+    axios
+      .post("http://localhost:8080/api/post/add", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -176,6 +101,7 @@ export default function AddItem() {
             <input
               className="addItem__btn-upload"
               type="file"
+              name="files"
               multiple
               accept="image/*"
               onChange={onImageChange}
@@ -190,10 +116,10 @@ export default function AddItem() {
             <label className="addItem__title-label">
               Title
               <input
-                onChange={(e) => setTitle(e.target.value)}
                 className="addItem__title-input"
                 type="text"
                 name="title"
+                id="title"
               />
             </label>
           </div>
@@ -202,11 +128,7 @@ export default function AddItem() {
             <div className="addItem__category-container">
               <label className="addItem__category-label">
                 Category
-                <select
-                  onChange={(e) => setCategory(e.target.value)}
-                  className="addItem__category-select"
-                  name="category"
-                >
+                <select className="addItem__category-select" name="category">
                   <option value="Antiques">Antiques</option>
                   <option value="Appliances">Appliances</option>
                   <option value="Arts+crafts">Arts+crafts</option>
@@ -262,7 +184,6 @@ export default function AddItem() {
               <label className="addItem__price-label">
                 Price
                 <input
-                  onChange={(e) => setPrice(e.target.value)}
                   className="addItem__price-input"
                   type="text"
                   name="price"
@@ -275,11 +196,7 @@ export default function AddItem() {
             <div className="addItem__category-container">
               <label className="addItem__category-label">
                 Location
-                <select
-                  onChange={(e) => setAddress(e.target.value)}
-                  name="address"
-                  className="addItem__category-select"
-                >
+                <select name="address" className="addItem__category-select">
                   <option value="Vancouver">Vancouver</option>
                   <option value="Nortn Vancouver">North Vancouver</option>
                   <option value="Downtown">Downtown</option>
@@ -295,11 +212,7 @@ export default function AddItem() {
             <div className="addItem__price-container">
               <label className="addItem__price-label">
                 Condition
-                <select
-                  onChange={(e) => setCondition(e.target.value)}
-                  name="condition"
-                  className="addItem__category-select"
-                >
+                <select name="condition" className="addItem__category-select">
                   <option value="New">New</option>
                   <option value="Used Like New">Used - Like New</option>
                   <option value="Used - Good">Used - Good</option>
@@ -313,7 +226,6 @@ export default function AddItem() {
             <label className="addItem__description-label">
               Description
               <textarea
-                onChange={(e) => setDescription(e.target.value)}
                 className="addItem__description-textarea"
                 type="text"
                 name="description"
