@@ -72,7 +72,7 @@ export default function AddItem() {
 
     axios
       .post("http://localhost:8080/api/post/add", form, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
         console.log(response.data);

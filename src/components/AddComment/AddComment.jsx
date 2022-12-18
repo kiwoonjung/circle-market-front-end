@@ -7,10 +7,23 @@ import axios from "axios";
 export default function AddComment() {
   const navigate = useNavigate();
 
+  const [item, setItem] = useState({});
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
+  const [comment, setComment] = useState("");
   const { id } = useParams();
+
+  const getSinglePost = async () => {
+    await axios
+      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+      .then((response) => {
+        setItem(response.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt_token");
@@ -47,18 +60,16 @@ export default function AddComment() {
   function handlePost(event) {
     event.preventDefault();
 
-    const form = new FormData();
-    form.append("userAvatar", userAvatar);
-    form.append("userid", userId);
-    form.append("name", userName);
-    form.append("comment", event.target.comment.value);
-
+    let commentForm = {
+      useravatar: userAvatar,
+      userid: userId,
+      name: userName,
+      comment: comment,
+    };
     axios
-      .post(`http://localhost:8080/api/post/findOnePost/${id}`, form, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -78,12 +89,20 @@ export default function AddComment() {
           </div>
           <label className="comment__label">
             Comment
-            <textarea className="comment__input" name="comment" type="text" />
+            <textarea
+              className="comment__input"
+              type="text"
+              id="comment"
+              name="comment"
+              onChange={(e) => setComment(e.target.value)}
+            />
           </label>
         </div>
 
         <div className="comment__btn-container">
-          <button className="comment__btn-comment">Add Comment</button>
+          <button type="submit" className="comment__btn-comment">
+            Add Comment
+          </button>
         </div>
       </form>
     </div>

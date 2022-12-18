@@ -83,7 +83,6 @@ export default function EditItem() {
             <input
               className="addItem__btn-upload"
               type="file"
-              multiple
               accept="image/*"
               onChange={(e) => {
                 setNewImages(e.target.files);
