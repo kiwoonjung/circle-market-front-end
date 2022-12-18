@@ -7,16 +7,23 @@
     display: flex;
   }
 
-  &__avatar-container {
+  &__info-container {
     margin-right: 1rem;
     padding-top: 1.5rem;
   }
 
-  &__default-avatar {
-    background-image: url("../../assets/images/icons/default_profile.svg");
-    background-size: cover;
+  &__avatar-container {
+    margin-left: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+
+  &__avatar {
     width: 2.5rem;
     height: 2.5rem;
+  }
+
+  &__userid {
+    display: none;
   }
 
   &__label {

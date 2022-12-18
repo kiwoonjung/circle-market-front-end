@@ -80,6 +80,7 @@
 
   &__icon-group {
     display: flex;
+    align-items: center;
   }
 
   &__icon {
@@ -92,6 +93,10 @@
   }
 }
 
+.chat-container {
+  margin-right: 2rem;
+}
+
 .chat-btn {
   width: 8rem;
   height: 2rem;
@@ -100,9 +105,9 @@
   border-radius: 2rem;
   background: black;
   border: hidden;
-  margin-left: 1.6rem;
 }
 
 .description-second {
   display: flex;
+  justify-content: space-between;
 }

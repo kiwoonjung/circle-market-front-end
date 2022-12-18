@@ -18,7 +18,7 @@ export default function Profile() {
       .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
       .then((response) => {
         setUser(response.data[0].name);
-        setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
+        setUserAvatar(response.data[0].imageUrl);
         setUserEmail(response.data[0].email);
         console.log(response.data[0]);
       })
@@ -66,10 +66,7 @@ export default function Profile() {
               return (
                 <Link key={i} to={`/item-details/${list._id}`}>
                   <div className="mylist__img-container" key={i}>
-                    <img
-                      className="mylist__img"
-                      src={`http://localhost:8080/${list.imageUrl}`}
-                    />
+                    <img className="mylist__img" src={list.imageUrl[0].url} />
 
                     <div className="mylist__title">{list.title}</div>
                     <div>{list.address}</div>

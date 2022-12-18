@@ -10,11 +10,13 @@ export default function EditItem() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [item, setItem] = useState({});
-  const [newImage, setNewImage] = useState(item);
+  const [itemImages, setItemImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
   const getSinglePost = async () => {
     await axios
       .get(`http://localhost:8080/api/post/findOnePost/${id}`)
       .then((response) => {
+        setItemImages(response.data[0].imageUrl);
         setItem(response.data[0]);
       })
       .catch((err) => {
@@ -26,19 +28,33 @@ export default function EditItem() {
     getSinglePost();
   }, []);
 
-
   function handleEdit(event) {
     event.preventDefault();
-    let editFormSubmit = {
-      imageUrl: "/uploads/" + newImage.filename,
-      title: event.target.title.value,
-    };
+    // let editFormSubmit = {
+    //   imageUrl: "/uploads/" + newImage.filename,
+    //   title: event.target.title.value,
+    // };
+
+    // setNewImages(event.target.files);
+
+    const form = new FormData();
+    for (const image of newImages) {
+      // console.log(image);
+      form.append("files", image);
+    }
+    // form.append("userid", userId);
+    // form.append("title", event.target.title.value);
+    // form.append("category", event.target.category.value);
+    // form.append("price", event.target.price.value);
+    // form.append("address", event.target.address.value);
+    // form.append("condition", event.target.condition.value);
+    // form.append("description", event.target.description.value);
 
     axios
-      .put(`http://localhost:8080/api/post/editItem/${id}`, editFormSubmit)
+      .put(`http://localhost:8080/api/post/editItem/${id}`, form)
       .then((response) => {
-        console.log(editFormSubmit);
-        alert("Post Edited!");
+        console.log(response.data);
+        // alert("Post Edited!");
         // navigate("/");
       })
       .catch((err) => {
@@ -52,21 +68,25 @@ export default function EditItem() {
         <Header />
         <form onSubmit={handleEdit}>
           <div className="addItem__img-container">
-              <img
-                name="image"
-                className="addItem__img"
-                src={`http://localhost:8080${item.imageUrl}`}
-                alt={item.title}
-              />
+            {itemImages.map((singleImage, i) => {
+              return (
+                <img
+                  key={i}
+                  className="itemDetails__img"
+                  src={singleImage.url}
+                  alt={singleImage.url}
+                />
+              );
+            })}
           </div>
           <div className="addItem__btn-container">
             <input
               className="addItem__btn-upload"
               type="file"
+              multiple
               accept="image/*"
-              onChange={(event)=>{
-                setNewImage(event.target.files[0])
-                console.log(event.target.files[0])
+              onChange={(e) => {
+                setNewImages(e.target.files);
               }}
             />
           </div>
