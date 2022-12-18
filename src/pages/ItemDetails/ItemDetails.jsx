@@ -46,6 +46,11 @@ export default function ItemDetails() {
     getSinglePost();
   }, []);
 
+  const dateFormat = (time) => {
+    const foundDate = new Date(time).toLocaleDateString();
+    return foundDate;
+  };
+
   return (
     <div className="addItem-background">
       <div className="addItem-wrapper">
@@ -74,12 +79,14 @@ export default function ItemDetails() {
             </div>
 
             <div className="user-info__container">
-              <div>
+              <div className="user-info__container--info">
                 <div>{userName}</div>
-                <div>{item.address}</div>
+                <div className="user-info__container--location">
+                  {item.address}
+                </div>
               </div>
 
-              <div>
+              <div className="user-info__container--info">
                 <div>★★★★★</div>
                 <div>Circle Lv 1</div>
               </div>
@@ -94,7 +101,7 @@ export default function ItemDetails() {
 
         <div className="category-container">
           <div>{item.category}</div>
-          <div>{item.timestamp}</div>
+          <div>{dateFormat(item.timestamp)}</div>
         </div>
 
         <div className="description-container">

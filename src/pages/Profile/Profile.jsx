@@ -69,8 +69,8 @@ export default function Profile() {
                     <img className="mylist__img" src={list.imageUrl[0].url} />
 
                     <div className="mylist__title">{list.title}</div>
-                    <div>{list.address}</div>
-                    <div>${list.price}</div>
+                    <div className="mylist__location">{list.address}</div>
+                    <div className="mylist__price">${list.price}</div>
                   </div>
                 </Link>
               );
