@@ -8,6 +8,7 @@ import axios from "axios";
 export default function Profile() {
   const [user, setUser] = useState(null);
   const [userAvatar, setUserAvatar] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [lists, setLists] = useState([]);
 
   const { id } = useParams();
@@ -18,6 +19,7 @@ export default function Profile() {
       .then((response) => {
         setUser(response.data[0].name);
         setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
+        setUserEmail(response.data[0].email);
         console.log(response.data[0]);
       })
       .catch((err) => {
@@ -52,7 +54,10 @@ export default function Profile() {
             <div className="profile__avatar-container">
               <img className="profile__avatar" src={userAvatar} />
             </div>
-            <div className="profile__username">{user}</div>
+            <div className="profile__info">
+              <div className="profile__info--name">UserName: {user}</div>
+              <div>Email: {userEmail}</div>
+            </div>
           </div>
 
           <div className="mylist">

@@ -18,15 +18,10 @@
   padding: 1rem 0 0 1rem;
   width: 100%;
   box-sizing: border-box;
-
-  @include tablet {
-    grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
-  }
+  justify-content: center;
 
   @include desktop {
     grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
     padding-right: 13rem;
     padding-left: 13rem;
   }
