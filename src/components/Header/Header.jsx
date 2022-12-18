@@ -41,7 +41,7 @@ export default function Header() {
       .then((response) => {
         setLoggedIn(true);
         setUser(response.data[0].name);
-        setUserAvatar("http://localhost:8080" + response.data[0].imageUrl);
+        setUserAvatar(response.data[0].imageUrl);
         setUserId(response.data[0]._id);
       })
       .catch((error) => {

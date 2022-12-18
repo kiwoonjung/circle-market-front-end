@@ -1,5 +1,4 @@
 import "./CommentList.scss";
-
 export default function CommentList() {
   return (
     <div className="comment-list-wrapper">
