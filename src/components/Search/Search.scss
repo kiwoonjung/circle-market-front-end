@@ -3,10 +3,10 @@
 
 .search {
   display: flex;
-  padding: 6rem 3rem 1rem 3rem;
+  padding: 2rem 2rem 1rem 2rem;
 
-  @include desktop {
-    padding: 6rem 30rem 1rem 30rem;
+  @include tablet {
+    justify-content: center;
   }
 
   &__input {
@@ -18,7 +18,11 @@
     background: url("../../assets/images/icons/search.svg");
     background-repeat: no-repeat;
     background-size: 1.2rem;
-    background-position: 1.4rem 0.6rem;
-    text-indent: 3.5rem;
+    background-position: 1rem 0.6rem;
+    text-indent: 2.5rem;
+
+    @include tablet {
+      width: 15.5rem;
+    }
   }
 }

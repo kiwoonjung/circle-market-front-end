@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import logo from "../../assets/images/logo/CIRCLE LOGO.png";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ export default function Header() {
           <nav className="header-nav">
             <Link to="/">
               <div className="header-logo">
-                <div>Logo</div>
+                <div>
+                  <img className="header-logo-img" src={logo} alt="logo" />
+                </div>
               </div>
             </Link>
 
