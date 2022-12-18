@@ -57,16 +57,6 @@ export default function AddItem() {
 
   function handlePost(event) {
     event.preventDefault();
-    console.log(images[0])
-    let addItemForm = {
-      imageUrl: images[0],
-      title: event.target.title.value,
-      category: event.target.category.value,
-      price: event.target.price.value,
-      address: event.target.address.value,
-      condition: event.target.condition.value,
-      description: event.target.description.value,
-    };
 
     const form = new FormData();
     for (const image of images) {
@@ -82,7 +72,7 @@ export default function AddItem() {
 
     axios
       .post("http://localhost:8080/api/post/add", form, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
         console.log(response.data);
