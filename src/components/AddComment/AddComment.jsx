@@ -61,7 +61,6 @@ export default function AddComment() {
       .then((response) => {
         console.log(response.data);
         alert("Thank you for comment!");
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);

@@ -4,6 +4,8 @@ import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import edit from "../../assets/images/icons/edit.svg";
+import delte from "../../assets/images/icons/trash.svg";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -45,6 +47,21 @@ export default function Profile() {
     getPostsByUserId();
   }, []);
 
+  const deletePost = async (event) => {
+    await axios
+      .delete(`http://localhost:8080/api/post/delete/${id.data._id}`)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    deletePost();
+  }, []);
+
   return (
     <div>
       <Header />
@@ -67,11 +84,20 @@ export default function Profile() {
                 <Link key={i} to={`/item-details/${list._id}`}>
                   <div className="mylist__img-container" key={i}>
                     <img className="mylist__img" src={list.imageUrl[0].url} />
-
-                    <div className="mylist__title">{list.title}</div>
-                    <div className="mylist__location">{list.address}</div>
-                    <div className="mylist__price">${list.price}</div>
+                    <div className="mylist__edit-container">
+                      <div>
+                        <div className="mylist__title">{list.title}</div>
+                        <div className="mylist__location">{list.address}</div>
+                        <div className="mylist__price">${list.price}</div>
+                      </div>
+                      <Link to={`/edit-item/${list._id}`}>
+                        <img src={edit} alt="edit-icon" />
+                      </Link>
+                    </div>
                   </div>
+                  <button onClick={deletePost}>
+                    <img src={delte} alt="edit-icon" />
+                  </button>
                 </Link>
               );
             })}
