@@ -54,8 +54,8 @@ export default function EditItem() {
       .put(`http://localhost:8080/api/post/editItem/${id}`, form)
       .then((response) => {
         console.log(response.data);
-        // alert("Post Edited!");
-        // navigate("/");
+        alert("Post Edited!");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

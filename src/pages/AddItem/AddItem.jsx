@@ -76,6 +76,8 @@ export default function AddItem() {
       })
       .then((response) => {
         console.log(response.data);
+        alert("Thank you for uploading!");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);
