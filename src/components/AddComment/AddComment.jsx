@@ -14,17 +14,6 @@ export default function AddComment() {
   const [comment, setComment] = useState("");
   const { id } = useParams();
 
-  const getSinglePost = async () => {
-    await axios
-      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
-      .then((response) => {
-        setItem(response.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt_token");
     // if JWT token exists try to load the user profile, user object
@@ -71,6 +60,8 @@ export default function AddComment() {
       .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
       .then((response) => {
         console.log(response.data);
+        alert("Thank you for comment!");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

@@ -4,6 +4,9 @@
 .addItem-background {
   background-image: url("../../assets/images/background/page-backgroud.jpg");
   background-size: cover;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .addItem-wrapper {

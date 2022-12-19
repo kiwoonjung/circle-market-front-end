@@ -25,26 +25,31 @@ export default function CommentList() {
   return (
     <div className="comment-list-wrapper">
       {/* comments in map */}
-      {comments.map((comments, i) => {
-        return (
-          <div key={i}>
-            <div className="comment-list">
-              <div className="comment-list__avatar-container">
-                <img
-                  className="comment-list__default-avatar"
-                  src={comments.useravatar}
-                ></img>
+      {comments
+        ?.sort((a, b) => b.timestamp - a.timestamp)
+        .map((comments, i) => {
+          return (
+            <div key={i}>
+              <div className="comment-list">
+                <div className="comment-list__avatar-container">
+                  <img
+                    className="comment-list__default-avatar"
+                    src={comments.useravatar}
+                    alt="useravatar"
+                  ></img>
+                </div>
+                <div className="comment-list__info">
+                  <div>{comments.name}</div>
+                  <div>{comments.timestamp}</div>
+                </div>
               </div>
-              <div className="comment-list__info">
-                <div>{comments.name}</div>
-                <div>{comments.timestamp}</div>
+
+              <div className="comment-list__description">
+                {comments.comment}
               </div>
             </div>
-
-            <div className="comment-list__description">{comments.comment}</div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 }

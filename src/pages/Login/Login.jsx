@@ -2,7 +2,6 @@ import "./Login.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
-// import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -27,15 +26,6 @@ export default function Login() {
         console.log(error);
       });
   };
-
-  /*
-   * Logout user
-   */
-  // const handleLogout = () => {
-  //   setLoggedIn(false);
-  //   setUser(null);
-  //   localStorage.removeItem("jwt_token");
-  // };
 
   return (
     <div className="login-background">

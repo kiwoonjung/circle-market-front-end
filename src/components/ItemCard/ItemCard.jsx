@@ -27,7 +27,7 @@ export default function ItemCard() {
   }, []);
 
   return (
-    <div>
+    <div className="itemcard-wrapper">
       <span className="mobile1-text">Buy and Sell in your Circle</span>
       <div className="tablet-text">
         <div className="tablet-text__container">

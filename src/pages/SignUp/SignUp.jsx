@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Error from "../../assets/images/icons/error.svg";
-const { v4: uuid } = require("uuid");
 
 export default function SignUp() {
   const navigate = useNavigate();

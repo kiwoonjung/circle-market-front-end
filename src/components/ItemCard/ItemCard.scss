@@ -1,6 +1,12 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+.itemcard-wrapper {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .mobile1-text {
   font-family: Poppins;
   background: #f5f3ff;
