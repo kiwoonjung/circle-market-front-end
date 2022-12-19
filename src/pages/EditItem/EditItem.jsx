@@ -12,6 +12,7 @@ export default function EditItem() {
   const [item, setItem] = useState({});
   const [itemImages, setItemImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
+  const [imagesURLs, setImagesURLs] = useState([]);
   const getSinglePost = async () => {
     await axios
       .get(`http://localhost:8080/api/post/findOnePost/${id}`)
@@ -28,27 +29,37 @@ export default function EditItem() {
     getSinglePost();
   }, []);
 
+  useEffect(() => {
+    if (newImages.length < 1) return;
+    const newImageUrls = [];
+    newImages.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImagesURLs(newImageUrls);
+  }, [newImages]);
+
+  function onImageChange(event) {
+    setNewImages([...event.target.files]);
+  }
+
+  function handleDelete(event) {
+    event.preventDefault();
+    setItemImages(
+      itemImages.filter((el) => el !== itemImages[event.target.value])
+    );
+  }
+
   function handleEdit(event) {
     event.preventDefault();
-    // let editFormSubmit = {
-    //   imageUrl: "/uploads/" + newImage.filename,
-    //   title: event.target.title.value,
-    // };
-
-    // setNewImages(event.target.files);
-
     const form = new FormData();
     for (const image of newImages) {
-      // console.log(image);
       form.append("files", image);
     }
-    // form.append("userid", userId);
-    // form.append("title", event.target.title.value);
-    // form.append("category", event.target.category.value);
-    // form.append("price", event.target.price.value);
-    // form.append("address", event.target.address.value);
-    // form.append("condition", event.target.condition.value);
-    // form.append("description", event.target.description.value);
+    form.append("existingFiles", JSON.stringify(itemImages));
+    form.append("title", event.target.title.value);
+    form.append("category", event.target.category.value);
+    form.append("price", event.target.price.value);
+    form.append("address", event.target.address.value);
+    form.append("condition", event.target.condition.value);
+    form.append("description", event.target.description.value);
 
     axios
       .put(`http://localhost:8080/api/post/editItem/${id}`, form)
@@ -70,23 +81,40 @@ export default function EditItem() {
           <div className="addItem__img-container">
             {itemImages.map((singleImage, i) => {
               return (
-                <img
-                  key={i}
-                  className="itemDetails__img"
-                  src={singleImage.url}
-                  alt={singleImage.url}
-                />
+                <div key={i}>
+                  <img
+                    className="itemDetails__img"
+                    src={singleImage.url}
+                    alt={singleImage.url}
+                  />
+                  <button
+                    name="imageIndex"
+                    type="button"
+                    value={i}
+                    onClick={handleDelete}
+                  >
+                    X
+                  </button>
+                </div>
               );
             })}
+            {/* IF ANY ADDED IMAGE */}
+            {imagesURLs.map((imageSrc, i) => (
+              <img
+                key={i}
+                className="itemDetails__img"
+                src={imageSrc}
+                alt={imageSrc.name}
+              />
+            ))}
           </div>
           <div className="addItem__btn-container">
             <input
               className="addItem__btn-upload"
               type="file"
               accept="image/*"
-              onChange={(e) => {
-                setNewImages(e.target.files);
-              }}
+              multiple
+              onChange={onImageChange}
             />
           </div>
 
