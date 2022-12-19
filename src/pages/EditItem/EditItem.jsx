@@ -42,13 +42,21 @@ export default function EditItem() {
 
   function handleDelete(event) {
     event.preventDefault();
+
     setItemImages(
-      itemImages.filter((el) => el !== itemImages[event.target.value])
+      itemImages.filter((el) => {
+        return el !== itemImages[event.target.value];
+      })
     );
   }
 
   function handleEdit(event) {
     event.preventDefault();
+    if (itemImages.length === 0) {
+      alert("You can't delete all images :O");
+      window.location.reload();
+      return;
+    }
     const form = new FormData();
     for (const image of newImages) {
       form.append("files", image);
