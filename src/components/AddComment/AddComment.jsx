@@ -65,6 +65,7 @@ export default function AddComment() {
       userid: userId,
       name: userName,
       comment: comment,
+      timestamp: Date.now(),
     };
     axios
       .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
