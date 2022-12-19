@@ -40,6 +40,13 @@ export default function EditItem() {
     setNewImages([...event.target.files]);
   }
 
+  function handleDelete(event) {
+    event.preventDefault();
+    setItemImages(
+      itemImages.filter((el) => el !== itemImages[event.target.value])
+    );
+  }
+
   function handleEdit(event) {
     event.preventDefault();
     const form = new FormData();
@@ -74,12 +81,21 @@ export default function EditItem() {
           <div className="addItem__img-container">
             {itemImages.map((singleImage, i) => {
               return (
-                <img
-                  key={i}
-                  className="itemDetails__img"
-                  src={singleImage.url}
-                  alt={singleImage.url}
-                />
+                <div key={i}>
+                  <img
+                    className="itemDetails__img"
+                    src={singleImage.url}
+                    alt={singleImage.url}
+                  />
+                  <button
+                    name="imageIndex"
+                    type="button"
+                    value={i}
+                    onClick={handleDelete}
+                  >
+                    X
+                  </button>
+                </div>
               );
             })}
             {/* IF ANY ADDED IMAGE */}
