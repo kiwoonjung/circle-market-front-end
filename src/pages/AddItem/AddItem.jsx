@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { v4 as uuid } from 'uuid';
 import axios from "axios";
 
 export default function AddItem() {
@@ -62,6 +63,7 @@ export default function AddItem() {
     for (const image of images) {
       form.append("files", image);
     }
+    form.append("uuid", uuid());
     form.append("userid", userId);
     form.append("title", event.target.title.value);
     form.append("category", event.target.category.value);
