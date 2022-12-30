@@ -8,6 +8,7 @@ import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Slider from "react-slick";
 import axios from "axios";
 
 export default function ItemDetails() {
@@ -16,6 +17,38 @@ export default function ItemDetails() {
   const [userName, setUserName] = useState();
   const [userAvatar, setUserAvatar] = useState();
   const { id } = useParams();
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  var settings = {
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   const getSinglePost = async () => {
     await axios
@@ -56,16 +89,18 @@ export default function ItemDetails() {
       <div className="addItem-wrapper">
         <Header />
         <div className="itemDetails__img-container">
-          {itemImage.map((singleImage, i) => {
-            return (
-              <img
-                key={i}
-                className="itemDetails__img"
-                src={singleImage.url}
-                alt={itemImage}
-              />
-            );
-          })}
+          <Slider {...settings}>
+            {itemImage.map((singleImage, i) => {
+              return (
+                <img
+                  key={i}
+                  className="itemDetails__img"
+                  src={singleImage.url}
+                  alt={itemImage}
+                />
+              );
+            })}
+          </Slider>
         </div>
 
         <div className="user-wrapper">
