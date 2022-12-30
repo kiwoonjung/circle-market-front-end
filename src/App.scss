@@ -21,3 +21,14 @@ Routes {
   max-width: 1280px;
   margin: 0 auto;
 }
+
+//REACT - SLICK
+.slick-prev::before {
+  color: black !important;
+  content: url('./assets/images/icons/arrow-left.png') !important;
+}
+
+.slick-next::before {
+  color: black !important;
+  content: url('./assets/images/icons/arrow-right.png') !important;
+}
