@@ -58,10 +58,6 @@ export default function Profile() {
       });
   };
 
-  useEffect(() => {
-    deletePost();
-  }, []);
-
   return (
     <div>
       <Header />
