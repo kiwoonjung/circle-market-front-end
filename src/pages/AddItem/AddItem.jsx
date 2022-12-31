@@ -4,13 +4,15 @@ import Footer from "../../components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
+import Slider from "react-slick";
 import axios from "axios";
 
 export default function AddItem() {
   const navigate = useNavigate();
 
   const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
 
   const [images, setImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
@@ -50,6 +52,7 @@ export default function AddItem() {
       })
       .then((response) => {
         setUserId(response.data[0]._id);
+        setUsername(response.data[0].name);
       })
       .catch((error) => {
         console.log(error);
@@ -65,6 +68,7 @@ export default function AddItem() {
     }
     form.append("uuid", uuid());
     form.append("userid", userId);
+    form.append("name", username);
     form.append("title", event.target.title.value);
     form.append("category", event.target.category.value);
     form.append("price", event.target.price.value);
@@ -86,20 +90,55 @@ export default function AddItem() {
       });
   }
 
+  //REACT SLICK CAROUSEL
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  var settings = {
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="addItem-background">
       <div className="addItem-wrapper">
         <Header />
         <form onSubmit={handlePost}>
           <div className="addItem__img-container">
-            {imagesURLs.map((imageSrc, i) => (
-              <img
-                key={i}
-                className="addItem__img"
-                src={imageSrc}
-                alt={imageSrc.name}
-              />
-            ))}
+            <Slider {...settings}>
+              {imagesURLs.map((imageSrc, i) => (
+                <img
+                  key={i}
+                  className="addItem__img"
+                  src={imageSrc}
+                  alt={imageSrc.name}
+                />
+              ))}
+            </Slider>
           </div>
           <div className="addItem__btn-container">
             <input
@@ -114,6 +153,7 @@ export default function AddItem() {
 
           <div className="user-hidden">
             <input type="hidden" value={userId} />
+            <input type="hidden" value={username} />
           </div>
 
           <div className="addItem__title-container">
