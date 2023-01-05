@@ -1,89 +1,71 @@
 import "./SignUp.scss";
+import React from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { auth, db, storage } from "../../firebase";
+import { useState } from "react";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import Error from "../../assets/images/icons/error.svg";
+
+// import axios from "axios";
+
+// import Error from "../../assets/images/icons/error.svg";
 
 export default function SignUp() {
+  const [err, setErr] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [defaultAvatar, setDefaultAvatar] = "";
   const navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-  const [useremail, setUseremail] = useState("");
-  const [userpassword, setUserpassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [username_Error, setUsername_Error] = useState("");
-  const [useremail_Error, setUseremail_Error] = useState("");
-  const [userpassword_Error, setUserpassword_Error] = useState("");
-  const [confirmPassword_Error, setConfirmPassword_Error] = useState("");
-
-  function validatecontact_email(user_email) {
-    const re =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-]*$/;
-    return re.test(user_email);
-  }
-
-  useEffect(() => {
-    if (username !== "") {
-      setUsername_Error(null);
-    } else {
-      setUsername_Error(true);
-    }
-  }, [username]);
-
-  useEffect(() => {
-    if (validatecontact_email(useremail) !== false) {
-      setUseremail_Error(null);
-    } else {
-      setUseremail_Error(true);
-    }
-  }, [useremail]);
-
-  useEffect(() => {
-    if (userpassword !== "") {
-      setUserpassword_Error(null);
-    } else {
-      setUserpassword_Error(true);
-    }
-  }, [userpassword]);
-
-  useEffect(() => {
-    if (confirmPassword !== "" || confirmPassword !== userpassword) {
-      setConfirmPassword_Error(null);
-    } else {
-      setConfirmPassword_Error(true);
-    }
-  }, [confirmPassword]);
-
-  useEffect(() => {
-    if (validatecontact_email(useremail) !== false) {
-      setUseremail_Error(null);
-    } else {
-      setUseremail_Error(true);
-    }
-  }, [useremail]);
-
-  function handleSignUp(event) {
+  const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
+    const email = event.target[0].value;
+    const displayName = event.target[1].value;
+    const password = event.target[2].value;
+    const file = event.target[3].files[0];
 
-    if (
-      username_Error === true ||
-      useremail_Error === true ||
-      userpassword_Error === true ||
-      confirmPassword_Error === true
-    ) {
-    } else {
-      axios.post("http://localhost:8080/api/auth/signup", {
-        email: useremail,
-        name: username,
-        password: userpassword,
+    try {
+      //Create user
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      //Create a unique image name
+      const date = new Date().getTime();
+      const storageRef = ref(storage, `${email + "" + date}`);
+
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
+            await updateProfile(res.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
+            //create user on firestore
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email,
+              photoURL: downloadURL,
+            });
+
+            //create empty user chats on firestore
+            await setDoc(doc(db, "userChats", res.user.uid), {});
+            navigate("/");
+          } catch (err) {
+            console.log(err);
+            setErr(true);
+            setLoading(false);
+          }
+        });
       });
-      alert("New user Added!");
-      navigate("/login");
+    } catch (err) {
+      setErr(true);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="addItem-background">
@@ -92,24 +74,16 @@ export default function SignUp() {
         <div>
           <div className="signup-logo">Sign Up</div>
           <div>
-            <form className="signup" onSubmit={handleSignUp}>
+            <form className="signup" onSubmit={handleSubmit}>
               <div className="signup__input-container">
                 <label className="signup__label">
                   Email
                   <input
-                    onChange={(e) => setUseremail(e.target.value)}
+                    required
                     className="signup__input-email"
-                    type="text"
-                    name="useremail"
+                    type="email"
+                    name="email"
                   />
-                  {useremail_Error && (
-                    <div className="signup__error-wrp">
-                      <img className="signup__error-img" src={Error} alt="" />
-                      <p className="signup__error-text">
-                        This field is required
-                      </p>
-                    </div>
-                  )}
                 </label>
               </div>
 
@@ -117,19 +91,11 @@ export default function SignUp() {
                 <label className="signup__label">
                   Username
                   <input
-                    onChange={(e) => setUsername(e.target.value)}
+                    required
                     className="signup__input-user"
                     type="text"
-                    name="username"
+                    name="displayName"
                   />
-                  {username_Error && (
-                    <div className="signup__error-wrp">
-                      <img className="signup__error-img" src={Error} alt="" />
-                      <p className="signup__error-text">
-                        This field is required
-                      </p>
-                    </div>
-                  )}
                 </label>
               </div>
 
@@ -137,46 +103,37 @@ export default function SignUp() {
                 <label className="signup__label">
                   Password
                   <input
-                    onChange={(e) => setUserpassword(e.target.value)}
+                    required
                     className="signup__input-pw"
                     type="password"
-                    name="userpassword"
+                    name="password"
                   />
-                  {userpassword_Error && (
-                    <div className="signup__error-wrp">
-                      <img className="signup__error-img" src={Error} alt="" />
-                      <p className="signup__error-text">
-                        This field is required
-                      </p>
-                    </div>
-                  )}
                 </label>
               </div>
 
-              <div className="signup__input-container">
-                <label className="signup__label">
-                  Confirm Password
-                  <input
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="signup__input-confirm-pw"
-                    type="password"
-                    name="confirm-password"
+              <div>
+                <input style={{ display: "none" }} type="file" id="file" />
+                <label className="signup__input-avatar-label" htmlFor="file">
+                  <img
+                    className="signup__input-avatar"
+                    src={defaultAvatar}
+                    alt="defaultAvatar"
                   />
-                  {confirmPassword_Error && (
-                    <div className="signup__error-wrp">
-                      <img className="signup__error-img" src={Error} alt="" />
-                      <p className="signup__error-text">
-                        This field is required
-                      </p>
-                    </div>
-                  )}
+                  <span>Add an avatar</span>
                 </label>
               </div>
 
               <div className="signup__btn-container">
-                <button className="signup__btn" type="submit">
+                <button
+                  disabled={loading}
+                  className="signup__btn"
+                  type="submit"
+                >
                   SIGN UP
                 </button>
+                {loading &&
+                  "Uploading and compressing the image please wait..."}
+                {err && <span>Something went wrong</span>}
               </div>
             </form>
           </div>

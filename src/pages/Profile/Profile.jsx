@@ -6,6 +6,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import edit from "../../assets/images/icons/edit.svg";
 import delte from "../../assets/images/icons/trash.svg";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -20,9 +21,13 @@ export default function Profile() {
       .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
       .then((response) => {
         setUser(response.data[0].name);
-        setUserAvatar(response.data[0].imageUrl);
         setUserEmail(response.data[0].email);
-        console.log(response.data[0]);
+
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
       })
       .catch((err) => {
         console.log(err);

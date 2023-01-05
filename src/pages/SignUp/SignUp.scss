@@ -110,4 +110,17 @@
         0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
     }
   }
+
+  &__input-avatar-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.625rem;
+  }
+
+  &__input-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }

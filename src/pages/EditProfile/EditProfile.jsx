@@ -1,12 +1,27 @@
 import "./EditProfile.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 import { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 export default function EditProfile() {
-  const [userName, setUserName] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const [username, setUsername] = useState("");
+  const [newImages, setNewImages] = useState([]);
+  const [imagesURLs, setImagesURLs] = useState([]);
+
+  useEffect(() => {
+    if (newImages.length < 1) return;
+    const newImageUrls = [];
+    newImages.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImagesURLs(newImageUrls);
+  }, [newImages]);
+
+  function onImageChange(event) {
+    setNewImages([...event.target.files]);
+  }
 
   /*
    * Get user data
@@ -23,20 +38,17 @@ export default function EditProfile() {
         },
       })
       .then((response) => {
-        setUserName(response.data[0].name);
-        // setLoggedIn(true);
-        // setUserAvatar(response.data[0].imageUrl);
-        // setUserId(response.data[0]._id);
+        setUsername(response.data[0].name);
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
-  /*
-   * Component Mount, check if localStorage has JWT token
-   * if token exists verify JWT and login user
-   */
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt_token");
@@ -46,19 +58,22 @@ export default function EditProfile() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   loadProfile();
-  // }, []);
-
   return (
     <div>
-      <Header />
-      <div>
-        <form className="editProfile">
-          <input type="text" defaultValue={userName} />
+      <div className="profile">
+        <form>
+          <div className="profile__avatar-container">
+            <img className="profile__avatar" src={userAvatar} />
+          </div>
+          <div className="profile__info">
+            <input
+              className="profile__info--name"
+              defaultValue={username}
+            ></input>
+          </div>
+          <button type="submit">Save</button>
         </form>
       </div>
-      <Footer />
     </div>
   );
 }

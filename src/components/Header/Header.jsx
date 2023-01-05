@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import logo from "../../assets/images/logo/CIRCLE LOGO.png";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -42,8 +45,12 @@ export default function Header() {
       .then((response) => {
         setLoggedIn(true);
         setUser(response.data[0].name);
-        setUserAvatar(response.data[0].imageUrl);
         setUserId(response.data[0]._id);
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -100,6 +107,7 @@ export default function Header() {
                   <button
                     className="nav-a"
                     onClick={() => {
+                      signOut(auth);
                       handleLogout();
                       navigate("/");
                     }}

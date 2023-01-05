@@ -1,0 +1,42 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.chat-input {
+  height: 50px;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__input {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #2f2d52;
+    font-size: 18px;
+
+    &::placeholder {
+      color: lightgray;
+    }
+  }
+
+  &__send {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &--img {
+      height: 24px;
+      cursor: pointer;
+    }
+
+    &--btn {
+      border: none;
+      padding: 10px 15px;
+      color: white;
+      background-color: #8da4f1;
+      cursor: pointer;
+    }
+  }
+}
