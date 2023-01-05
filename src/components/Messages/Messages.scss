@@ -1,0 +1,9 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.messages {
+  background-color: white;
+  padding: 10px;
+  height: 65.22vh;
+  overflow: scroll;
+}

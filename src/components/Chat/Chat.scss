@@ -1,0 +1,29 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.chat {
+  &__info {
+    height: 50px;
+    background-color: #5d5b8d;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    color: lightgray;
+  }
+
+  &__icons {
+    display: flex;
+    gap: 10px;
+
+    &--img {
+      height: 24px;
+      cursor: pointer;
+    }
+  }
+
+  &__messages {
+    height: calc(100% - 160px);
+    color: black;
+  }
+}

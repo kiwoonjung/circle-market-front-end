@@ -1,0 +1,33 @@
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/variables" as *;
+
+.chatlist {
+  background-color: #f5f3ff;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 65%;
+    height: 80%;
+    display: flex;
+    overflow: hidden;
+
+    @include tablet {
+      width: 90%;
+    }
+  }
+
+  &__sidebar {
+    flex: 1;
+    background-color: #3e3c61;
+    position: relative;
+  }
+
+  &__chat {
+    flex: 2;
+  }
+}
