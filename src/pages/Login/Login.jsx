@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-// import axios from "axios";
+import axios from "axios";
 
 export default function Login() {
   const [err, setErr] = useState(false);
@@ -27,24 +27,24 @@ export default function Login() {
     }
   };
 
-  // const handleLogin = (event) => {
-  //   event.preventDefault();
-  //   axios
-  //     .post(`http://localhost:8080/api/auth/signin`, {
-  //       email: event.target.email.value,
-  //       password: event.target.password.value,
-  //     })
-  //     .then((response) => {
-  //       if (response.data.accessToken) {
-  //         localStorage.setItem("jwt_token", response.data.accessToken);
-  //         console.log(response.data);
-  //         navigate("/");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const handleLogin = (event) => {
+    event.preventDefault();
+    axios
+      .post(`http://localhost:8080/api/auth/signin`, {
+        email: event.target.email.value,
+        password: event.target.password.value,
+      })
+      .then((response) => {
+        if (response.data.accessToken) {
+          localStorage.setItem("jwt_token", response.data.accessToken);
+          console.log(response.data);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="login-background">
@@ -53,7 +53,7 @@ export default function Login() {
         <div>
           <div className="login-logo">Login</div>
           <div>
-            <form className="login" onSubmit={handleSubmit}>
+            <form className="login" onSubmit={(handleSubmit, handleLogin)}>
               <div className="login__input-container">
                 <label className="login__label">
                   Useremail

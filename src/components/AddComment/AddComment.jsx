@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 
 export default function AddComment() {
   const navigate = useNavigate();
@@ -37,9 +38,13 @@ export default function AddComment() {
         },
       })
       .then((response) => {
-        setUserAvatar(response.data[0].imageUrl);
         setUserId(response.data[0]._id);
         setUserName(response.data[0].name);
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +53,6 @@ export default function AddComment() {
 
   function handlePost(event) {
     event.preventDefault();
-
     let commentForm = {
       useravatar: userAvatar,
       userid: userId,
@@ -61,6 +65,7 @@ export default function AddComment() {
       .then((response) => {
         console.log(response.data);
         alert("Thank you for comment!");
+        setComment(null);
       })
       .catch((err) => {
         console.log(err);
@@ -85,7 +90,7 @@ export default function AddComment() {
               type="text"
               id="comment"
               name="comment"
-              onChange={(e) => setComment(e.target.value)}
+              onChange={(event) => setComment(event.target.value)}
             />
           </label>
         </div>
