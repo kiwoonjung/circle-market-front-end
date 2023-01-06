@@ -30,6 +30,7 @@ export default function Input() {
       uploadTask.on(
         (error) => {
           //TODO:Handle Error
+          console.log(error);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {

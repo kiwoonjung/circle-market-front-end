@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { auth, db, storage } from "../../firebase";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -21,18 +21,23 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [useremail, setUserEmail] = useState("");
   const [userpassword, setUserPassword] = useState("");
+  const [userImageUrl, setUserImageUrl] = useState(defaultAvatar);
 
   const navigate = useNavigate();
 
-  function handleSignUp(event) {
-    // event.preventDefault();
-    axios.post("http://localhost:8080/api/auth/signup", {
-      email: useremail,
-      name: username,
-      password: userpassword,
-    });
-    alert("New user Added!");
-    navigate("/login");
+  //REAL TIME IMAGE CHANGE
+  const [images, setImages] = useState([]);
+  const [imagesURLs, setImagesURLs] = useState([]);
+
+  useEffect(() => {
+    if (images.length < 1) return;
+    const newImageUrls = [];
+    images.forEach((image) => newImageUrls.push(URL.createObjectURL(image)));
+    setImagesURLs(newImageUrls);
+  }, [images]);
+
+  function onImageChange(event) {
+    setImages([...event.target.files]);
   }
 
   const handleSubmit = async (event) => {
@@ -69,7 +74,15 @@ export default function SignUp() {
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
-            handleSignUp();
+
+            //CREATE A NEW USER TO MONGO DB
+            await axios.post("http://localhost:8080/api/auth/signup", {
+              email: useremail,
+              name: username,
+              password: userpassword,
+              imageUrl: downloadURL,
+            });
+            alert("New user Added!");
             navigate("/");
           } catch (err) {
             console.log(err);
@@ -132,13 +145,32 @@ export default function SignUp() {
               </div>
 
               <div>
-                <input style={{ display: "none" }} type="file" id="file" />
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  id="file"
+                  accept="image/*"
+                  onChange={onImageChange}
+                />
                 <label className="signup__input-avatar-label" htmlFor="file">
-                  <img
-                    className="signup__input-avatar"
-                    src={defaultAvatar}
-                    alt="defaultAvatar"
-                  />
+                  {/* IF THERE IS NO IMAGE URL (UPLOADED FILE) */}
+                  {!imagesURLs.length && (
+                    <img
+                      className="signup__input-avatar"
+                      src={userImageUrl}
+                      alt=""
+                    />
+                  )}
+
+                  {/* IF THERE IS IMAGE URL (UPLOADED FILE) */}
+                  {imagesURLs.map((imageSrc, i) => (
+                    <img
+                      key={i}
+                      className="signup__input-avatar"
+                      src={imageSrc}
+                      alt={imageSrc.name}
+                    />
+                  ))}
                   <span>Add an avatar</span>
                 </label>
               </div>
