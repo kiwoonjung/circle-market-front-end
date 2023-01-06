@@ -9,16 +9,32 @@ import { useState } from "react";
 import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-
-// import axios from "axios";
+import axios from "axios";
 
 // import Error from "../../assets/images/icons/error.svg";
 
 export default function SignUp() {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [defaultAvatar, setDefaultAvatar] = "";
+  // const [defaultAvatar, setDefaultAvatar] = "";
+
+  const [username, setUsername] = useState("");
+  const [useremail, setUserEmail] = useState("");
+  const [userpassword, setUserPassword] = useState("");
+
   const navigate = useNavigate();
+
+  function handleSignUp(event) {
+    // event.preventDefault();
+    axios.post("http://localhost:8080/api/auth/signup", {
+      email: useremail,
+      name: username,
+      password: userpassword,
+    });
+    alert("New user Added!");
+    navigate("/login");
+  }
+
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
@@ -53,6 +69,7 @@ export default function SignUp() {
 
             //create empty user chats on firestore
             await setDoc(doc(db, "userChats", res.user.uid), {});
+            handleSignUp();
             navigate("/");
           } catch (err) {
             console.log(err);
@@ -83,6 +100,7 @@ export default function SignUp() {
                     className="signup__input-email"
                     type="email"
                     name="email"
+                    onChange={(event) => setUserEmail(event.target.value)}
                   />
                 </label>
               </div>
@@ -95,6 +113,7 @@ export default function SignUp() {
                     className="signup__input-user"
                     type="text"
                     name="displayName"
+                    onChange={(event) => setUsername(event.target.value)}
                   />
                 </label>
               </div>
@@ -107,6 +126,7 @@ export default function SignUp() {
                     className="signup__input-pw"
                     type="password"
                     name="password"
+                    onChange={(event) => setUserPassword(event.target.value)}
                   />
                 </label>
               </div>

@@ -6,10 +6,11 @@ import Header from "../../components/Header/Header";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import axios from "axios";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 
 export default function ItemDetails() {
   const [item, setItem] = useState({});
@@ -68,7 +69,11 @@ export default function ItemDetails() {
       .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
       .then((response) => {
         setUserName(response.data[0].name);
-        setUserAvatar(response.data[0].imageUrl);
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -164,7 +169,9 @@ export default function ItemDetails() {
             </div>
           </div>
           <div className="chat-container">
-            <button className="chat-btn">Chat with Seller</button>
+            <Link to="/chatlist">
+              <button className="chat-btn">Chat with Seller</button>
+            </Link>
           </div>
         </div>
 

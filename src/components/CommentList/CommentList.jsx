@@ -2,6 +2,7 @@ import "./CommentList.scss";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 
 export default function CommentList() {
   const { id } = useParams();
