@@ -12,6 +12,7 @@ export default function Login() {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     setLoading(true);
     event.preventDefault();
@@ -20,30 +21,27 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
+
+      event.preventDefault();
+      axios
+        .post(`http://localhost:8080/api/auth/signin`, {
+          email: event.target.email.value,
+          password: event.target.password.value,
+        })
+        .then((response) => {
+          if (response.data.accessToken) {
+            localStorage.setItem("jwt_token", response.data.accessToken);
+            console.log(response.data);
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } catch (err) {
       setErr(true);
       setLoading(false);
     }
-  };
-
-  const handleLogin = (event) => {
-    event.preventDefault();
-    axios
-      .post(`http://localhost:8080/api/auth/signin`, {
-        email: event.target.email.value,
-        password: event.target.password.value,
-      })
-      .then((response) => {
-        if (response.data.accessToken) {
-          localStorage.setItem("jwt_token", response.data.accessToken);
-          console.log(response.data);
-          navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   return (
@@ -53,7 +51,7 @@ export default function Login() {
         <div>
           <div className="login-logo">Login</div>
           <div>
-            <form className="login" onSubmit={(handleSubmit, handleLogin)}>
+            <form className="login" onSubmit={handleSubmit}>
               <div className="login__input-container">
                 <label className="login__label">
                   Useremail
@@ -78,11 +76,7 @@ export default function Login() {
 
               <div className="login__forgot">Forgot Password?</div>
               <div className="login__btn-container">
-                <button
-                  onClick={navigate("/")}
-                  className="login__btn"
-                  type="submit"
-                >
+                <button className="login__btn" type="submit">
                   LOGIN
                 </button>
               </div>

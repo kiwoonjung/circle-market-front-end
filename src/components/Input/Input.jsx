@@ -85,21 +85,17 @@ export default function Input() {
           value={text}
         />
         <div className="chat-input__send">
-          <img className="chat-input__send--img" src={Attach} alt="Attach" />
-          <input
-            className="chat-input__input"
-            type="file"
-            style={{ display: "none" }}
-            id="file"
-            onChange={(event) => setImg(event.target.files[0])}
-          />
           <label htmlFor="file">
-            <img
-              className="chat-input__send--img"
-              src={Img}
-              alt="paperclip.svg"
+            <img className="chat-input__send--img" src={Img} alt="Img.svg" />
+            <input
+              className="chat-input__input"
+              type="file"
+              style={{ display: "none" }}
+              id="file"
+              onChange={(event) => setImg(event.target.files[0])}
             />
           </label>
+
           <button onClick={handleSend} className="chat-input__send--btn">
             Send
           </button>

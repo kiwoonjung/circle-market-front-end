@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
+import moment from "moment";
+import { Timestamp } from "@firebase/firestore";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
-import { db } from "../../firebase";
 import "./Message.scss";
 
 export default function Message(message) {
@@ -9,7 +10,13 @@ export default function Message(message) {
   const { data } = useContext(ChatContext);
 
   const ref = useRef();
-  // console.log(message.message.img);
+
+  //GET TIME AGO FOR EACH MESSAGE
+  const messageDate = message.message.date;
+  const pastDate = new Date(
+    messageDate.seconds * 1000 + messageDate.nanoseconds / 1000000
+  );
+  const timeago = moment(pastDate).fromNow();
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -32,10 +39,12 @@ export default function Message(message) {
           }
           alt=""
         />
-        <span className="message__info--time">time ago</span>
+        <span className="message__info--time">{timeago}</span>
       </div>
       <div className="message__content">
-        <p className="message__content--text">{message.message.text}</p>
+        {message.message.text && (
+          <p className="message__content--text">{message.message.text}</p>
+        )}
 
         {message.message.img && (
           <img

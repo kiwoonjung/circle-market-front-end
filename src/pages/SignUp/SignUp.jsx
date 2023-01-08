@@ -21,7 +21,7 @@ export default function SignUp() {
   const [username, setUsername] = useState("");
   const [useremail, setUserEmail] = useState("");
   const [userpassword, setUserPassword] = useState("");
-  const [userImageUrl, setUserImageUrl] = useState(defaultAvatar);
+  // const [userImageUrl, setUserImageUrl] = useState(defaultAvatar);
 
   const navigate = useNavigate();
 
@@ -157,7 +157,7 @@ export default function SignUp() {
                   {!imagesURLs.length && (
                     <img
                       className="signup__input-avatar"
-                      src={userImageUrl}
+                      src={defaultAvatar}
                       alt=""
                     />
                   )}
@@ -166,7 +166,7 @@ export default function SignUp() {
                   {imagesURLs.map((imageSrc, i) => (
                     <img
                       key={i}
-                      className="signup__input-avatar"
+                      className="signup__input-useravatar"
                       src={imageSrc}
                       alt={imageSrc.name}
                     />

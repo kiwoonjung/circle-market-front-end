@@ -28,9 +28,10 @@
   }
 
   &__avatar {
-    width: 100%;
-    border: 0.0625rem solid $cloud;
-    border-radius: 16rem;
+    width: 10rem;
+    height: 10rem;
+    border: 0.0625rem solid #bdc5d5;
+    border-radius: 50%;
   }
 
   &__info {
