@@ -38,6 +38,7 @@ export default function AddComment() {
         },
       })
       .then((response) => {
+        console.log(response);
         setUserId(response.data[0]._id);
         setUserName(response.data[0].name);
         if (response.data[0].imageUrl) {
