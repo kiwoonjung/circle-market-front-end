@@ -84,8 +84,8 @@ export default function ItemDetails() {
     getSinglePost();
   }, []);
 
-  const dateFormat = (time) => {
-    const foundDate = new Date(time).toLocaleDateString();
+  const dateFormat = () => {
+    const foundDate = new Date().toLocaleDateString();
     return foundDate;
   };
 
