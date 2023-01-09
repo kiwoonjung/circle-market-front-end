@@ -31,7 +31,6 @@ export default function Login() {
         .then((response) => {
           if (response.data.accessToken) {
             localStorage.setItem("jwt_token", response.data.accessToken);
-            console.log(response.data);
             navigate("/");
           }
         })
