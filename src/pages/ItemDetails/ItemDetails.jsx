@@ -6,6 +6,7 @@ import Header from "../../components/Header/Header";
 import AddComment from "../../components/AddComment/AddComment";
 import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
+import jwt_decode from "jwt-decode";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -51,23 +52,25 @@ export default function ItemDetails() {
     slidesToScroll: 1,
   };
 
-  const getSinglePost = async () => {
-    await axios
-      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
-      .then((response) => {
-        setItemImage(response.data[0].imageUrl);
-        setItem(response.data[0]);
-        getSingleUser(response.data[0].userid);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  useEffect(() => {
+    const jwtToken = localStorage.getItem("jwt_token");
+    // if JWT token exists try to load the user profile, user object
+    if (jwtToken) {
+      loadProfile(jwtToken);
+    }
+  }, []);
 
-  const getSingleUser = async (userId) => {
-    await axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+  const loadProfile = (jwtToken) => {
+    const decode = jwt_decode(jwtToken);
+
+    axios
+      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
+        // setUserId(response.data[0]._id);
         setUserName(response.data[0].name);
         if (response.data[0].imageUrl) {
           setUserAvatar(response.data[0].imageUrl);
@@ -75,9 +78,36 @@ export default function ItemDetails() {
           return setUserAvatar(defaultAvatar);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
+  };
+
+  // const getSingleUser = async (userId) => {
+  //   await axios
+  //     .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+  //     .then((response) => {
+  //       setUserName(response.data[0].name);
+  //       if (response.data[0].imageUrl) {
+  //         setUserAvatar(response.data[0].imageUrl);
+  //       } else {
+  //         return setUserAvatar(defaultAvatar);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  const getSinglePost = async () => {
+    await axios
+      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+      .then((response) => {
+        setItemImage(response.data[0].imageUrl);
+        setItem(response.data[0]);
+        // getSingleUser(response.data[0].userid);
+      })
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -175,7 +205,7 @@ export default function ItemDetails() {
           </div>
         </div>
 
-        <AddComment />
+        {localStorage.getItem("jwt_token") ? <AddComment /> : null}
         <CommentList />
         <Footer />
       </div>

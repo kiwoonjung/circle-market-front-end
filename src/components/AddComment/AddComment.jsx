@@ -38,7 +38,7 @@ export default function AddComment() {
         },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setUserId(response.data[0]._id);
         setUserName(response.data[0].name);
         if (response.data[0].imageUrl) {
@@ -64,7 +64,7 @@ export default function AddComment() {
     axios
       .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         alert("Thank you for comment!");
         setComment(null);
       })

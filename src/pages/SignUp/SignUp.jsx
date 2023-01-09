@@ -41,13 +41,14 @@ export default function SignUp() {
   }
 
   const handleSubmit = async (event) => {
-    setLoading(true);
+    // setLoading(true);
     event.preventDefault();
     const email = event.target[0].value;
     const displayName = event.target[1].value;
     const password = event.target[2].value;
-    const file = event.target[3].files[0];
+    const file = event.target[3].files[0] ? event.target[3].files[0] : null;
 
+    // console.log(file);
     try {
       //Create user
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -62,14 +63,14 @@ export default function SignUp() {
             //Update profile
             await updateProfile(res.user, {
               displayName,
-              photoURL: downloadURL,
+              photoURL: file ? downloadURL : null,
             });
             //create user on firestore
             await setDoc(doc(db, "users", res.user.uid), {
               uid: res.user.uid,
               displayName,
               email,
-              photoURL: downloadURL,
+              photoURL: file ? downloadURL : null,
             });
 
             //create empty user chats on firestore
@@ -80,7 +81,7 @@ export default function SignUp() {
               email: useremail,
               name: username,
               password: userpassword,
-              imageUrl: downloadURL,
+              imageUrl: file ? downloadURL : null,
             });
             alert("New user Added!");
             navigate("/");
