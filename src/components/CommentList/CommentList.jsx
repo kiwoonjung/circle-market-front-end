@@ -21,7 +21,7 @@ export default function CommentList() {
 
   useEffect(() => {
     getComments();
-  }, []);
+  }, [comments]);
 
   return (
     <div className="comment-list-wrapper">

@@ -38,6 +38,7 @@ export default function Login() {
           console.log(error);
         });
     } catch (err) {
+      console.log(err);
       setErr(true);
       setLoading(false);
     }

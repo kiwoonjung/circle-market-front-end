@@ -65,8 +65,9 @@ export default function AddComment() {
       .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
       .then((response) => {
         // console.log(response.data);
-        alert("Thank you for comment!");
-        setComment(null);
+        // alert("Thank you for comment!");
+        console.log(response.data);
+        // setComment(null);
       })
       .catch((err) => {
         console.log(err);
