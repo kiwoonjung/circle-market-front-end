@@ -62,7 +62,7 @@ export default function ItemCard() {
       <div className="item-container">
         <div className="item">
           {/* posts in map */}
-          {posts.map((post, i) => {
+          {posts?.reverse().map((post, i) => {
             return (
               <Link key={i} to={`item-details/${post._id}`}>
                 <div className="item__img-container" key={i}>

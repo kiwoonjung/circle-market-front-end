@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
 import moment from "moment";
-import { Timestamp } from "@firebase/firestore";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import "./Message.scss";
@@ -13,6 +12,7 @@ export default function Message(message) {
 
   //GET TIME AGO FOR EACH MESSAGE
   const messageDate = message.message.date;
+  console.log(messageDate);
   const pastDate = new Date(
     messageDate.seconds * 1000 + messageDate.nanoseconds / 1000000
   );

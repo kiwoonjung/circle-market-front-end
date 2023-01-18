@@ -3,7 +3,6 @@ import like from "../../assets/images/icons/like.svg";
 import comment from "../../assets/images/icons/comment.svg";
 import view from "../../assets/images/icons/view.svg";
 import Header from "../../components/Header/Header";
-import AddComment from "../../components/AddComment/AddComment";
 import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
 import jwt_decode from "jwt-decode";
@@ -18,6 +17,7 @@ export default function ItemDetails() {
   const [itemImage, setItemImage] = useState([]);
   const [userName, setUserName] = useState();
   const [userAvatar, setUserAvatar] = useState();
+  const [commentsNumber, setCommentsNumber] = useState();
   const { id } = useParams();
 
   function SampleNextArrow(props) {
@@ -52,41 +52,25 @@ export default function ItemDetails() {
     slidesToScroll: 1,
   };
 
-  useEffect(() => {
-    const jwtToken = localStorage.getItem("jwt_token");
-    // if JWT token exists try to load the user profile, user object
-    if (jwtToken) {
-      loadProfile(jwtToken);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem("jwt_token");
+  //   // if JWT token exists try to load the user profile, user object
+  //   if (jwtToken) {
+  //     loadProfile(jwtToken);
+  //   }
+  // }, []);
 
-  const loadProfile = (jwtToken) => {
-    const decode = jwt_decode(jwtToken);
+  // const loadProfile = (jwtToken) => {
+  //   const decode = jwt_decode(jwtToken);
 
-    axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
-      .then((response) => {
-        // setUserId(response.data[0]._id);
-        setUserName(response.data[0].name);
-        if (response.data[0].imageUrl) {
-          setUserAvatar(response.data[0].imageUrl);
-        } else {
-          return setUserAvatar(defaultAvatar);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  // const getSingleUser = async (userId) => {
-  //   await axios
-  //     .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+  //   axios
+  //     .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${jwtToken}`,
+  //       },
+  //     })
   //     .then((response) => {
+  //       // setUserId(response.data[0]._id);
   //       setUserName(response.data[0].name);
   //       if (response.data[0].imageUrl) {
   //         setUserAvatar(response.data[0].imageUrl);
@@ -94,10 +78,26 @@ export default function ItemDetails() {
   //         return setUserAvatar(defaultAvatar);
   //       }
   //     })
-  //     .catch((err) => {
-  //       console.log(err);
+  //     .catch((error) => {
+  //       console.log(error);
   //     });
   // };
+
+  const getSingleUser = async (userId) => {
+    await axios
+      .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+      .then((response) => {
+        setUserName(response.data[0].name);
+        if (response.data[0].imageUrl) {
+          setUserAvatar(response.data[0].imageUrl);
+        } else {
+          return setUserAvatar(defaultAvatar);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const getSinglePost = async () => {
     await axios
@@ -105,9 +105,12 @@ export default function ItemDetails() {
       .then((response) => {
         setItemImage(response.data[0].imageUrl);
         setItem(response.data[0]);
-        // getSingleUser(response.data[0].userid);
+        setCommentsNumber(response.data[0].comments.length);
+        getSingleUser(response.data[0].userid);
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -150,23 +153,17 @@ export default function ItemDetails() {
 
             <div className="user-info__container">
               <div className="user-info__container--info">
-                <div>{userName}</div>
-                <div className="user-info__container--location">
-                  {item.address}
-                </div>
+                <div className="user-info__container--username">{userName}</div>
               </div>
 
-              <div className="user-info__container--info">
-                <div>★★★★★</div>
-                <div>Circle Lv 1</div>
-              </div>
+              <div className="user-info__container--info">{item.address}</div>
             </div>
           </div>
         </div>
 
         <div className="title-container">
           <div className="title-content">{item.title}</div>
-          <div>${item.price}</div>
+          <div className="title-price">${item.price}</div>
         </div>
 
         <div className="category-container">
@@ -180,32 +177,26 @@ export default function ItemDetails() {
         <div className="description-second">
           <div className="description__icon-container">
             <div className="description__icon-group">
-              <img className="description__icon" src={like} alt="like.svg" />
-              <div className="description__text">68</div>
-            </div>
-
-            <div className="description__icon-group">
               <img
                 className="description__icon"
                 src={comment}
                 alt="comment.svg"
               />
-              <div className="description__text">21</div>
+              <div className="description__text">{commentsNumber}</div>
             </div>
-
+            {/* 
             <div className="description__icon-group">
               <img className="description__icon" src={view} alt="view.svg" />
-              <div className="description__text">179</div>
-            </div>
+              <div className="description__text">{item.views}</div>
+            </div> */}
           </div>
           <div className="chat-container">
-            <Link to="/chatlist">
+            <Link to="/chatlist" target="_blank">
               <button className="chat-btn">Chat with Seller</button>
             </Link>
           </div>
         </div>
 
-        {localStorage.getItem("jwt_token") ? <AddComment /> : null}
         <CommentList />
         <Footer />
       </div>

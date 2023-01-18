@@ -36,10 +36,11 @@
       display: flex;
       flex-direction: column;
       gap: 0.2rem;
+      font-weight: bold;
     }
 
-    &--location {
-      font-size: 0.8rem;
+    &--username {
+      font-size: 1.2rem;
     }
   }
 
@@ -59,16 +60,24 @@
 
 .title-content {
   width: 10rem;
+  font-size: 1.4rem;
+  font-weight: bold;
 
   @include tablet {
     width: 100%;
   }
 }
 
+.title-price {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
 .category-container {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem 2rem 0 2rem;
+  color: rgb(134, 142, 150);
 }
 
 .description-container {

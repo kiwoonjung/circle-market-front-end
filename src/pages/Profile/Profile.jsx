@@ -96,9 +96,9 @@ export default function Profile() {
                       </Link>
                     </div>
                   </div>
-                  <button onClick={deletePost}>
+                  {/* <button onClick={deletePost}>
                     <img src={delte} alt="edit-icon" />
-                  </button>
+                  </button> */}
                 </Link>
               );
             })}
