@@ -138,6 +138,17 @@ export default function Header() {
                   </Link>
                 )}
               </li>
+              <li className="nav-li">
+                {!loggedIn ? (
+                  <div></div>
+                ) : (
+                  <Link to="/chatlist" target="_blank">
+                    <div className="nav-a" href="#">
+                      CHAT
+                    </div>
+                  </Link>
+                )}
+              </li>
             </ul>
           </nav>
         </div>

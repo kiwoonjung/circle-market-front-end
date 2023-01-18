@@ -2,6 +2,9 @@
 @use "../../styles/partials/variables" as *;
 
 .footer {
+  // margin: 0rem 25rem 0rem 25rem;
+  background-color: white;
+
   &__logo {
     display: flex;
     justify-content: center;

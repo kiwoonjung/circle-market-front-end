@@ -5,7 +5,7 @@ import twitter from "../../assets/images/icons/twitter.svg";
 
 export default function Footer() {
   return (
-    <div>
+    <div className="footer">
       <div className="footer__logo">
         <div>
           <a href="https://www.facebook.com/">

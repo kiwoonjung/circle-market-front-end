@@ -13,6 +13,7 @@
   &__logo {
     font-weight: bold;
     display: none;
+    color: white;
 
     @include tablet {
       display: block;
