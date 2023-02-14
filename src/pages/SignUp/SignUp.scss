@@ -1,6 +1,28 @@
 @use "../../styles/partials/mixins" as *;
 @use "../../styles/partials/variables" as *;
 
+.signup-background {
+  background-image: url("../../assets/images/background/page-backgroud.jpg");
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.signup-wrapper {
+  background-color: $white;
+  height: 100vh;
+
+  @include tablet {
+    margin: 0rem 13rem 0rem 13rem;
+  }
+
+  @include desktop {
+    margin: 0rem 25rem 0rem 25rem;
+  }
+}
+
 .signup-logo {
   display: flex;
   justify-content: center;

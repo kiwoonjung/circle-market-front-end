@@ -100,97 +100,90 @@ export default function SignUp() {
   };
 
   return (
-    <div className="addItem-background">
-      <div className="addItem-wrapper">
+    <div className="signup-background">
+      <div className="signup-wrapper">
         <Header />
+        <div className="signup-logo">Sign Up</div>
         <div>
-          <div className="signup-logo">Sign Up</div>
-          <div>
-            <form className="signup" onSubmit={handleSubmit}>
-              <div className="signup__input-container">
-                <label className="signup__label">
-                  Email
-                  <input
-                    required
-                    className="signup__input-email"
-                    type="email"
-                    name="email"
-                    onChange={(event) => setUserEmail(event.target.value)}
-                  />
-                </label>
-              </div>
-
-              <div className="signup__input-container">
-                <label className="signup__label">
-                  Username
-                  <input
-                    required
-                    className="signup__input-user"
-                    type="text"
-                    name="displayName"
-                    onChange={(event) => setUsername(event.target.value)}
-                  />
-                </label>
-              </div>
-
-              <div className="signup__input-container">
-                <label className="signup__label">
-                  Password
-                  <input
-                    required
-                    className="signup__input-pw"
-                    type="password"
-                    name="password"
-                    onChange={(event) => setUserPassword(event.target.value)}
-                  />
-                </label>
-              </div>
-
-              <div>
+          <form className="signup" onSubmit={handleSubmit}>
+            <div className="signup__input-container">
+              <label className="signup__label">
+                Email
                 <input
-                  style={{ display: "none" }}
-                  type="file"
-                  id="file"
-                  accept="image/*"
-                  onChange={onImageChange}
+                  required
+                  className="signup__input-email"
+                  type="email"
+                  name="email"
+                  onChange={(event) => setUserEmail(event.target.value)}
                 />
-                <label className="signup__input-avatar-label" htmlFor="file">
-                  {/* IF THERE IS NO IMAGE URL (UPLOADED FILE) */}
-                  {!imagesURLs.length && (
-                    <img
-                      className="signup__input-avatar"
-                      src={defaultAvatar}
-                      alt=""
-                    />
-                  )}
+              </label>
+            </div>
 
-                  {/* IF THERE IS IMAGE URL (UPLOADED FILE) */}
-                  {imagesURLs.map((imageSrc, i) => (
-                    <img
-                      key={i}
-                      className="signup__input-useravatar"
-                      src={imageSrc}
-                      alt={imageSrc.name}
-                    />
-                  ))}
-                  <span>Add an avatar</span>
-                </label>
-              </div>
+            <div className="signup__input-container">
+              <label className="signup__label">
+                Username
+                <input
+                  required
+                  className="signup__input-user"
+                  type="text"
+                  name="displayName"
+                  onChange={(event) => setUsername(event.target.value)}
+                />
+              </label>
+            </div>
 
-              <div className="signup__btn-container">
-                <button
-                  disabled={loading}
-                  className="signup__btn"
-                  type="submit"
-                >
-                  SIGN UP
-                </button>
-                {loading &&
-                  "Uploading and compressing the image please wait..."}
-                {err && <span>Something went wrong</span>}
-              </div>
-            </form>
-          </div>
+            <div className="signup__input-container">
+              <label className="signup__label">
+                Password
+                <input
+                  required
+                  className="signup__input-pw"
+                  type="password"
+                  name="password"
+                  onChange={(event) => setUserPassword(event.target.value)}
+                />
+              </label>
+            </div>
+
+            <div>
+              <input
+                style={{ display: "none" }}
+                type="file"
+                id="file"
+                accept="image/*"
+                onChange={onImageChange}
+              />
+              <label className="signup__input-avatar-label" htmlFor="file">
+                {/* IF THERE IS NO IMAGE URL (UPLOADED FILE) */}
+                {!imagesURLs.length && (
+                  <img
+                    className="signup__input-avatar"
+                    src={defaultAvatar}
+                    alt=""
+                  />
+                )}
+
+                {/* IF THERE IS IMAGE URL (UPLOADED FILE) */}
+                {imagesURLs.map((imageSrc, i) => (
+                  <img
+                    key={i}
+                    className="signup__input-useravatar"
+                    src={imageSrc}
+                    alt={imageSrc.name}
+                  />
+                ))}
+                <span>Add an avatar</span>
+              </label>
+            </div>
+
+            <div className="signup__btn-container">
+              <button disabled={loading} className="signup__btn" type="submit">
+                SIGN UP
+              </button>
+              {loading && "Uploading and compressing the image please wait..."}
+              {err && <span>Something went wrong</span>}
+            </div>
+          </form>
         </div>
         <Footer />
       </div>

@@ -66,7 +66,7 @@
     @include desktop {
       display: flex;
       flex-direction: column;
-      padding-top: 15rem;
+      padding-top: 12rem;
       position: absolute;
       padding-left: 1rem;
     }
@@ -131,8 +131,6 @@
   @include desktop {
     display: block;
     width: 100%;
-
-    padding-top: 3.7rem;
   }
 }
 
@@ -167,7 +165,7 @@
   display: grid;
   grid-template-columns: repeat(2, 8.5625rem);
   grid-template-rows: 1fr;
-  padding: 1rem 1rem 0 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   width: 100%;
   box-sizing: border-box;
   justify-content: center;
@@ -226,6 +224,14 @@
     text-overflow: ellipsis;
     margin-bottom: 0.2rem;
     font-weight: normal;
+
+    @include tablet {
+      width: 171.61px;
+    }
+
+    @include desktop {
+      width: 203.61px;
+    }
   }
 
   &__location {
