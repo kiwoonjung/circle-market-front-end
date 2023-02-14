@@ -60,14 +60,14 @@ export default function EditProfile() {
 
   return (
     <div>
-      <div className="profile">
+      <div className="editprofile">
         <form>
-          <div className="profile__avatar-container">
-            <img className="profile__avatar" src={userAvatar} />
+          <div className="edittprofile__avatar-container">
+            <img className="editprofile__avatar" src={userAvatar} />
           </div>
-          <div className="profile__info">
+          <div className="editprofile__info">
             <input
-              className="profile__info--name"
+              className="editprofile__info--name"
               defaultValue={username}
             ></input>
           </div>
