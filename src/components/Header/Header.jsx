@@ -43,6 +43,7 @@ export default function Header() {
         },
       })
       .then((response) => {
+        console.log(response);
         setLoggedIn(true);
         setUser(response.data[0].name);
         setUserId(response.data[0]._id);

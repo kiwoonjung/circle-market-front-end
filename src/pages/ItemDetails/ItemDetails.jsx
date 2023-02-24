@@ -52,37 +52,6 @@ export default function ItemDetails() {
     slidesToScroll: 1,
   };
 
-  // useEffect(() => {
-  //   const jwtToken = localStorage.getItem("jwt_token");
-  //   // if JWT token exists try to load the user profile, user object
-  //   if (jwtToken) {
-  //     loadProfile(jwtToken);
-  //   }
-  // }, []);
-
-  // const loadProfile = (jwtToken) => {
-  //   const decode = jwt_decode(jwtToken);
-
-  //   axios
-  //     .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${jwtToken}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       // setUserId(response.data[0]._id);
-  //       setUserName(response.data[0].name);
-  //       if (response.data[0].imageUrl) {
-  //         setUserAvatar(response.data[0].imageUrl);
-  //       } else {
-  //         return setUserAvatar(defaultAvatar);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   const getSingleUser = async (userId) => {
     await axios
       .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
