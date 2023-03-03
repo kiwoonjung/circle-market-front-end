@@ -1,5 +1,5 @@
 import "./CommentList.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -78,10 +78,8 @@ export default function CommentList() {
     axios
       .post(`http://localhost:8080/api/post/addComment/${id}`, commentForm)
       .then((response) => {
-        // console.log(response.data);
         alert("Thank you for comment!");
         getComments();
-        // setComment(null);
       })
       .catch((err) => {
         console.log(err);

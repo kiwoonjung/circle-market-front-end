@@ -1,13 +1,12 @@
-import "./Home.scss";
+import "./PostList.scss";
 import Header from "../../components/Header/Header";
-import ItemCard from "../../components/ItemCard/ItemCard";
 import Footer from "../../components/Footer/Footer";
 
-export default function Home() {
+export default function PostList() {
   return (
     <div>
       <Header />
-      <ItemCard />
+      <div>PostList page</div>
       <Footer />
     </div>
   );

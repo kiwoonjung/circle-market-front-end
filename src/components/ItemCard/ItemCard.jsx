@@ -5,7 +5,6 @@ import mobile1 from "../../assets/images/background/Mobile-1.png";
 import mobile2 from "../../assets/images/background/Mobile-2.png";
 import tablet from "../../assets/images/background/Tablet.png";
 import desktop from "../../assets/images/background/Desktop.png";
-import Search from "../../components/Search/Search";
 import axios from "axios";
 
 export default function ItemCard() {
@@ -55,7 +54,6 @@ export default function ItemCard() {
         <img className="mobile2-img" src={mobile2} alt="mobile2" />
       </div>
 
-      <Search />
       <div className="list-header">
         <div className="list-title">What's new on the list today</div>
       </div>
@@ -76,9 +74,11 @@ export default function ItemCard() {
           })}
         </div>
       </div>
-      <div className="more">
-        <button className="more__btn">See More</button>
-      </div>
+      <Link to="/postlist">
+        <div className="more">
+          <button className="more__btn">See More</button>
+        </div>
+      </Link>
     </div>
   );
 }

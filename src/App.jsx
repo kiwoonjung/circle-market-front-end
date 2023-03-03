@@ -11,6 +11,7 @@ import EditProfile from "./pages/EditProfile/EditProfile";
 import ChatList from "./pages/ChatList/ChatList";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
+import PostList from "./pages/PostList/PostList";
 // import Test from "./pages/Test/Test";
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
               </ProtectRoute>
             }
           />
-          {/* <Route path="/test" element={<Test />} /> */}
+          <Route path="/postlist" element={<PostList />} />
         </Routes>
       </BrowserRouter>
     </div>
