@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import edit from "../../assets/images/icons/edit.svg";
-import delte from "../../assets/images/icons/trash.svg";
 import defaultAvatar from "../../assets/images/icons/default_profile.svg";
 
 export default function Profile() {
