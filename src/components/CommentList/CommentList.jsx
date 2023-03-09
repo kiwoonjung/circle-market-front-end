@@ -25,9 +25,23 @@ export default function CommentList() {
       });
   };
 
-  useEffect(() => {
-    getComments();
-  }, []);
+  useEffect(
+    (
+      getComments = async () => {
+        await axios
+          .get(`http://localhost:8080/api/post/findAllComments/${id}`)
+          .then((response) => {
+            setComments(response.data[0].comments);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    ) => {
+      getComments();
+    },
+    [id]
+  );
 
   useEffect(() => {
     const jwtToken = localStorage.getItem("jwt_token");
