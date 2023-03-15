@@ -13,21 +13,36 @@ export default function EditItem() {
   const [itemImages, setItemImages] = useState([]);
   const [newImages, setNewImages] = useState([]);
   const [imagesURLs, setImagesURLs] = useState([]);
-  const getSinglePost = async () => {
-    await axios
-      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
-      .then((response) => {
-        setItemImages(response.data[0].imageUrl);
-        setItem(response.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getSinglePost = async () => {
+  //   await axios
+  //     .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+  //     .then((response) => {
+  //       setItemImages(response.data[0].imageUrl);
+  //       setItem(response.data[0]);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  useEffect(() => {
-    getSinglePost();
-  }, []);
+  useEffect(
+    (
+      getSinglePost = async () => {
+        await axios
+          .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+          .then((response) => {
+            setItemImages(response.data[0].imageUrl);
+            setItem(response.data[0]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    ) => {
+      getSinglePost();
+    },
+    [id]
+  );
 
   useEffect(() => {
     if (newImages.length < 1) return;
