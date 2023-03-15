@@ -10,12 +10,9 @@ import axios from "axios";
 
 export default function Login() {
   const [err, setErr] = useState(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  loading(false);
   const handleSubmit = async (event) => {
-    setLoading(true);
     event.preventDefault();
     const email = event.target[0].value;
     const password = event.target[1].value;
@@ -41,7 +38,6 @@ export default function Login() {
     } catch (err) {
       console.log(err);
       setErr(true);
-      setLoading(false);
     }
   };
 

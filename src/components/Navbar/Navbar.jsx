@@ -7,6 +7,11 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const { currentUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt_token");
+  };
+
   return (
     <div className="navbar">
       <Link to="/">
@@ -15,7 +20,13 @@ export default function Navbar() {
       <div className="navbar__user">
         <img className="navbar__user--img" src={currentUser.photoURL} alt="" />
         <span>{currentUser.displayName}</span>
-        <button onClick={() => signOut(auth)} className="navbar__button">
+        <button
+          className="navbar__button"
+          onClick={() => {
+            signOut(auth);
+            handleLogout();
+          }}
+        >
           Logout
         </button>
       </div>

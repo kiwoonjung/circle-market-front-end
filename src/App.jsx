@@ -7,12 +7,10 @@ import SignUp from "./pages/SignUp/SignUp";
 import ItemDetails from "./pages/ItemDetails/ItemDetails";
 import EditItem from "./pages/EditItem/EditItem";
 import Profile from "./pages/Profile/Profile";
-import EditProfile from "./pages/EditProfile/EditProfile";
 import ChatList from "./pages/ChatList/ChatList";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import PostList from "./pages/PostList/PostList";
-// import Test from "./pages/Test/Test";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -56,14 +54,14 @@ function App() {
               </ProtectRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/edit-profile/:id"
             element={
               <ProtectRoute>
                 <EditProfile />
               </ProtectRoute>
             }
-          />
+          /> */}
           <Route
             path="/chatlist"
             element={
