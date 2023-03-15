@@ -1,6 +1,5 @@
 import "./Input.scss";
 import Img from "../../assets/images/icons/image.svg";
-import Attach from "../../assets/images/icons/paperclip.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";

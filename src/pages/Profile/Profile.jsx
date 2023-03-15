@@ -15,52 +15,90 @@ export default function Profile() {
 
   const { id } = useParams();
 
-  const getSingleUser = async () => {
-    await axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
-      .then((response) => {
-        setUser(response.data[0].name);
-        setUserEmail(response.data[0].email);
+  // const getSingleUser = async () => {
+  //   await axios
+  //     .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
+  //     .then((response) => {
+  //       setUser(response.data[0].name);
+  //       setUserEmail(response.data[0].email);
 
-        if (response.data[0].imageUrl) {
-          setUserAvatar(response.data[0].imageUrl);
-        } else {
-          return setUserAvatar(defaultAvatar);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    getSingleUser();
-  }, []);
+  //       if (response.data[0].imageUrl) {
+  //         setUserAvatar(response.data[0].imageUrl);
+  //       } else {
+  //         return setUserAvatar(defaultAvatar);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  const getPostsByUserId = async () => {
-    await axios
-      .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
-      .then((response) => {
-        setLists(response.data);
-        console.log(response.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    getPostsByUserId();
-  }, []);
+  useEffect(
+    (
+      getSingleUser = async () => {
+        await axios
+          .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
+          .then((response) => {
+            setUser(response.data[0].name);
+            setUserEmail(response.data[0].email);
 
-  const deletePost = async (event) => {
-    await axios
-      .delete(`http://localhost:8080/api/post/delete/${id.data._id}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+            if (response.data[0].imageUrl) {
+              setUserAvatar(response.data[0].imageUrl);
+            } else {
+              return setUserAvatar(defaultAvatar);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    ) => {
+      getSingleUser();
+    },
+    [id]
+  );
+
+  // const getPostsByUserId = async () => {
+  //   await axios
+  //     .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
+  //     .then((response) => {
+  //       setLists(response.data);
+  //       console.log(response.data[0]);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  useEffect(
+    (
+      getPostsByUserId = async () => {
+        await axios
+          .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
+          .then((response) => {
+            setLists(response.data);
+            console.log(response.data[0]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    ) => {
+      getPostsByUserId();
+    },
+    [id]
+  );
+
+  // const deletePost = async (event) => {
+  //   await axios
+  //     .delete(`http://localhost:8080/api/post/delete/${id.data._id}`)
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <div>
@@ -69,7 +107,11 @@ export default function Profile() {
         <div className="profile-wrapper">
           <div className="profile">
             <div className="profile__avatar-container">
-              <img className="profile__avatar" src={userAvatar} />
+              <img
+                className="profile__avatar"
+                src={userAvatar}
+                alt="user-avatar"
+              />
             </div>
             <div className="profile__info">
               <div className="profile__info--name">UserName: {user}</div>
@@ -83,7 +125,11 @@ export default function Profile() {
               return (
                 <Link key={i} to={`/item-details/${list._id}`}>
                   <div className="mylist__img-container" key={i}>
-                    <img className="mylist__img" src={list.imageUrl[0].url} />
+                    <img
+                      className="mylist__img"
+                      src={list.imageUrl[0].url}
+                      alt={list.title}
+                    />
                     <div className="mylist__edit-container">
                       <div>
                         <div className="mylist__title">{list.title}</div>

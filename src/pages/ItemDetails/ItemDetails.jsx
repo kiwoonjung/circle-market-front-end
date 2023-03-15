@@ -1,11 +1,8 @@
 import "./ItemDetails.scss";
-import like from "../../assets/images/icons/like.svg";
 import comment from "../../assets/images/icons/comment.svg";
-import view from "../../assets/images/icons/view.svg";
 import Header from "../../components/Header/Header";
 import CommentList from "../../components/CommentList/CommentList";
 import Footer from "../../components/Footer/Footer";
-import jwt_decode from "jwt-decode";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
@@ -68,23 +65,40 @@ export default function ItemDetails() {
       });
   };
 
-  const getSinglePost = async () => {
-    await axios
-      .get(`http://localhost:8080/api/post/findOnePost/${id}`)
-      .then((response) => {
-        setItemImage(response.data[0].imageUrl);
-        setItem(response.data[0]);
-        setCommentsNumber(response.data[0].comments.length);
-        getSingleUser(response.data[0].userid);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const getSinglePost = async () => {
+  //   await axios
+  //     .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+  //     .then((response) => {
+  //       setItemImage(response.data[0].imageUrl);
+  //       setItem(response.data[0]);
+  //       setCommentsNumber(response.data[0].comments.length);
+  //       getSingleUser(response.data[0].userid);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
-  useEffect(() => {
-    getSinglePost();
-  }, []);
+  useEffect(
+    (
+      getSinglePost = async () => {
+        await axios
+          .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+          .then((response) => {
+            setItemImage(response.data[0].imageUrl);
+            setItem(response.data[0]);
+            setCommentsNumber(response.data[0].comments.length);
+            getSingleUser(response.data[0].userid);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    ) => {
+      getSinglePost();
+    },
+    [id]
+  );
 
   const dateFormat = () => {
     const foundDate = new Date().toLocaleDateString();
