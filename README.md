@@ -40,6 +40,7 @@ This software uses the following open source packages:
   <p>• CSS<p>
   <p>• JavaScript<p>
   <p>• React<p>
+  <p>• MongoDB<p>
   <p>• Firebase<p>
 </p>
 
