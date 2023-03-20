@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://circlemarket.ca" target="_blank">
+  <a href="https://circlemarket.ca"  target="_blank" rel="noopener noreferrer">
   <img src="https://res.cloudinary.com/dhcnakbsj/image/upload/v1671415529/CIRCLE_LOGO_gzmzgb.png" alt="circlemarket" background="white" width="200">
   </a>
   <br>
