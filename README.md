@@ -1,7 +1,9 @@
 
 <h1 align="center">
   <br>
+  <a href="https://circlemarket.ca">
   <img src="https://res.cloudinary.com/dhcnakbsj/image/upload/v1671415529/CIRCLE_LOGO_gzmzgb.png" alt="circlemarket" background="white" width="200">
+  </a>
   <br>
   CircleMarket
   <br>
