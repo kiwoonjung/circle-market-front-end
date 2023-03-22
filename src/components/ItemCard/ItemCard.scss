@@ -149,6 +149,7 @@
 }
 
 .list-title {
+  font-family: Nunito;
   font-size: 1.2rem;
   font-weight: 900;
 
@@ -216,6 +217,7 @@
   }
 
   &__title {
+    font-family: Nunito;
     width: 134.61px;
     font-size: 1.4rem;
     color: #212529;
@@ -235,6 +237,7 @@
   }
 
   &__location {
+    font-family: Nunito;
     font-size: 0.8rem;
     overflow: hidden;
     white-space: nowrap;
@@ -243,6 +246,7 @@
   }
 
   &__price {
+    font-family: Nunito;
     font-size: 1rem;
     font-weight: 700;
     margin-bottom: 0.1rem;
