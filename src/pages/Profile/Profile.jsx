@@ -114,7 +114,7 @@ export default function Profile() {
               />
             </div>
             <div className="profile__info">
-              <div className="profile__info--name">UserName: {user}</div>
+              <div className="profile__info--name">Username: {user}</div>
               <div>Email: {userEmail}</div>
             </div>
           </div>

@@ -22,6 +22,7 @@
 }
 
 .login-logo {
+  font-family: Nunito;
   display: flex;
   justify-content: center;
   padding: 6rem 0 2.5rem 0;
@@ -35,6 +36,7 @@
   }
 
   &__label {
+    font-family: Nunito;
     font-size: 0.8rem;
   }
 
@@ -67,6 +69,7 @@
   }
 
   &__forgot {
+    font-family: Nunito;
     display: flex;
     justify-content: flex-end;
     padding-right: 3rem;
@@ -129,6 +132,7 @@
       0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
 
     color: #757575;
+    font-family: Nunito;
     font-size: 0.875rem;
     font-weight: 500;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -173,6 +177,7 @@
       0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
 
     color: #757575;
+    font-family: Nunito;
     font-size: 0.875rem;
     font-weight: 500;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -217,6 +222,7 @@
       0 0.0625rem 0.0625rem rgba(0, 0, 0, 0.25);
 
     color: #757575;
+    font-family: Nunito;
     font-size: 0.875rem;
     font-weight: 500;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
