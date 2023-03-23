@@ -22,7 +22,7 @@ export default function Login() {
 
       event.preventDefault();
       axios
-        .post(`http://localhost:8080/api/auth/signin`, {
+        .post(`${process.env.API_URL}/api/auth/signin`, {
           email: event.target.email.value,
           password: event.target.password.value,
         })

@@ -17,7 +17,7 @@ export default function Profile() {
 
   // const getSingleUser = async () => {
   //   await axios
-  //     .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
+  //     .get(`${process.env.API_URL}/api/auth/findOneUser/${id}`)
   //     .then((response) => {
   //       setUser(response.data[0].name);
   //       setUserEmail(response.data[0].email);
@@ -37,7 +37,7 @@ export default function Profile() {
     (
       getSingleUser = async () => {
         await axios
-          .get(`http://localhost:8080/api/auth/findOneUser/${id}`)
+          .get(`${process.env.API_URL}/api/auth/findOneUser/${id}`)
           .then((response) => {
             setUser(response.data[0].name);
             setUserEmail(response.data[0].email);
@@ -60,7 +60,7 @@ export default function Profile() {
 
   // const getPostsByUserId = async () => {
   //   await axios
-  //     .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
+  //     .get(`${process.env.API_URL}/api/post/findPostsByUserId/${id}`)
   //     .then((response) => {
   //       setLists(response.data);
   //       console.log(response.data[0]);
@@ -74,7 +74,7 @@ export default function Profile() {
     (
       getPostsByUserId = async () => {
         await axios
-          .get(`http://localhost:8080/api/post/findPostsByUserId/${id}`)
+          .get(`${process.env.API_URL}/api/post/findPostsByUserId/${id}`)
           .then((response) => {
             setLists(response.data);
             console.log(response.data[0]);
@@ -91,7 +91,7 @@ export default function Profile() {
 
   // const deletePost = async (event) => {
   //   await axios
-  //     .delete(`http://localhost:8080/api/post/delete/${id.data._id}`)
+  //     .delete(`${process.env.API_URL}/api/post/delete/${id.data._id}`)
   //     .then((response) => {
   //       console.log(response);
   //     })

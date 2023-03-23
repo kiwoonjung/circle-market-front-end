@@ -45,7 +45,7 @@ export default function AddItem() {
     const decode = jwt_decode(jwtToken);
 
     axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
+      .get(`${process.env.API_URL}/api/auth/findOneUser/${decode.id}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -77,7 +77,7 @@ export default function AddItem() {
     form.append("description", event.target.description.value);
 
     axios
-      .post("http://localhost:8080/api/post/add", form, {
+      .post("${process.env.API_URL}/api/post/add", form, {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {

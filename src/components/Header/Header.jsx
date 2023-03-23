@@ -37,7 +37,7 @@ export default function Header() {
     const decode = jwt_decode(jwtToken);
 
     axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${decode.id}`, {
+      .get(`${process.env.API_URL}/api/auth/findOneUser/${decode.id}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },

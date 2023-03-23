@@ -15,7 +15,7 @@ export default function EditItem() {
   const [imagesURLs, setImagesURLs] = useState([]);
   // const getSinglePost = async () => {
   //   await axios
-  //     .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+  //     .get(`${process.env.API_URL}/api/post/findOnePost/${id}`)
   //     .then((response) => {
   //       setItemImages(response.data[0].imageUrl);
   //       setItem(response.data[0]);
@@ -29,7 +29,7 @@ export default function EditItem() {
     (
       getSinglePost = async () => {
         await axios
-          .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+          .get(`${process.env.API_URL}/api/post/findOnePost/${id}`)
           .then((response) => {
             setItemImages(response.data[0].imageUrl);
             setItem(response.data[0]);
@@ -85,7 +85,7 @@ export default function EditItem() {
     form.append("description", event.target.description.value);
 
     axios
-      .put(`http://localhost:8080/api/post/editItem/${id}`, form)
+      .put(`${process.env.API_URL}/api/post/editItem/${id}`, form)
       .then((response) => {
         console.log(response.data);
         alert("Post Edited!");
