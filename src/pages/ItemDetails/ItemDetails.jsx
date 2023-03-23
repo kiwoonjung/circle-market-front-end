@@ -51,7 +51,7 @@ export default function ItemDetails() {
 
   const getSingleUser = async (userId) => {
     await axios
-      .get(`http://localhost:8080/api/auth/findOneUser/${userId}`)
+      .get(`${process.env.API_URL}/api/auth/findOneUser/${userId}`)
       .then((response) => {
         setUserName(response.data[0].name);
         if (response.data[0].imageUrl) {
@@ -67,7 +67,7 @@ export default function ItemDetails() {
 
   // const getSinglePost = async () => {
   //   await axios
-  //     .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+  //     .get(`${process.env.API_URL}/api/post/findOnePost/${id}`)
   //     .then((response) => {
   //       setItemImage(response.data[0].imageUrl);
   //       setItem(response.data[0]);
@@ -83,7 +83,7 @@ export default function ItemDetails() {
     (
       getSinglePost = async () => {
         await axios
-          .get(`http://localhost:8080/api/post/findOnePost/${id}`)
+          .get(`${process.env.API_URL}/api/post/findOnePost/${id}`)
           .then((response) => {
             setItemImage(response.data[0].imageUrl);
             setItem(response.data[0]);
@@ -167,7 +167,7 @@ export default function ItemDetails() {
               />
               <div className="description__text">{commentsNumber}</div>
             </div>
-            {/* 
+            {/*
             <div className="description__icon-group">
               <img className="description__icon" src={view} alt="view.svg" />
               <div className="description__text">{item.views}</div>
