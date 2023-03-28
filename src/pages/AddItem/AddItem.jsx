@@ -77,7 +77,7 @@ export default function AddItem() {
     form.append("description", event.target.description.value);
 
     axios
-      .post("${process.env.API_URL}/api/post/add", form, {
+      .post(`${process.env.API_URL}/api/post/add`, form, {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
