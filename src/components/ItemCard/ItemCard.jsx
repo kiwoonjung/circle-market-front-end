@@ -13,7 +13,7 @@ export default function ItemCard() {
   //FIND ALL POSTS in POST DATABASE
   const getPosts = async () => {
     await axios
-      .get("${process.env.API_URL}/api/post/findAllPosts")
+      .get(`${process.env.API_URL}/api/post/findAllPosts`)
       .then((response) => {
         setPosts(response.data);
       })
