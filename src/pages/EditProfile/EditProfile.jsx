@@ -32,7 +32,7 @@
 //   const loadProfile = (jwtToken) => {
 //     const decode = jwt_decode(jwtToken);
 //     axios
-//       .get(`${process.env.API_URL}/api/auth/findOneUser/${decode.id}`, {
+//       .get(`${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`, {
 //         headers: {
 //           Authorization: `Bearer ${jwtToken}`,
 //         },
