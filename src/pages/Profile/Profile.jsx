@@ -60,7 +60,7 @@ export default function Profile() {
 
   // const getPostsByUserId = async () => {
   //   await axios
-  //     .get(`${process.env.REACT_APP_API_URL}/api/post/findPostsByUserId/${id}`)
+  //     .get(`${process.env._API_URL}/api/post/findPostsByUserId/${id}`)
   //     .then((response) => {
   //       setLists(response.data);
   //       console.log(response.data[0]);
@@ -74,7 +74,9 @@ export default function Profile() {
     (
       getPostsByUserId = async () => {
         await axios
-          .get(`${REACT_APP_API_URL}/api/post/findPostsByUserId/${id}`)
+          .get(
+            `${process.env.REACT_APP_API_URL}/api/post/findPostsByUserId/${id}`
+          )
           .then((response) => {
             setLists(response.data);
             console.log(response.data[0]);
