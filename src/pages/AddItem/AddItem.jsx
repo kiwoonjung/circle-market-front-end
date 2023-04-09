@@ -41,15 +41,18 @@ export default function AddItem() {
    * send JWT token as part of request headers
    * token is decoded on the server and if valid sends back a user object
    */
-  const loadProfile = (jwtToken) => {
+  const loadProfile = async (jwtToken) => {
     const decode = jwt_decode(jwtToken);
 
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+    await axios
+      .get(
+        `${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
       .then((response) => {
         setUserId(response.data[0]._id);
         setUsername(response.data[0].name);
@@ -59,7 +62,7 @@ export default function AddItem() {
       });
   };
 
-  function handlePost(event) {
+  async function handlePost(event) {
     event.preventDefault();
 
     const form = new FormData();
@@ -76,7 +79,7 @@ export default function AddItem() {
     form.append("condition", event.target.condition.value);
     form.append("description", event.target.description.value);
 
-    axios
+    await axios
       .post(`${process.env.REACT_APP_API_URL}/api/post/add`, form, {
         headers: { "content-type": "multipart/form-data" },
       })
