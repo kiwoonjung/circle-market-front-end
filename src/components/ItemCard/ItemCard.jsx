@@ -13,7 +13,7 @@ export default function ItemCard() {
   //FIND ALL POSTS in POST DATABASE
   const getPosts = async () => {
     await axios
-      .get(`https://api.circlemarket.ca/api/post/findAllPosts`)
+      .get(`${REACT_APP_API_URL}/api/post/findAllPosts`)
       .then((response) => {
         setPosts(response.data);
       })

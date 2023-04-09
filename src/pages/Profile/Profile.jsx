@@ -74,7 +74,7 @@ export default function Profile() {
     (
       getPostsByUserId = async () => {
         await axios
-          .get(`https://api.circlemarket.ca/api/post/findPostsByUserId/${id}`)
+          .get(`${REACT_APP_API_URL}/api/post/findPostsByUserId/${id}`)
           .then((response) => {
             setLists(response.data);
             console.log(response.data[0]);

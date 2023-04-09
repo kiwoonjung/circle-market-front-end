@@ -29,7 +29,7 @@ export default function EditItem() {
     (
       getSinglePost = async () => {
         await axios
-          .get(`https://api.circlemarket.ca/api/post/findOnePost/${id}`)
+          .get(`${REACT_APP_API_URL}/api/post/findOnePost/${id}`)
           .then((response) => {
             setItemImages(response.data[0].imageUrl);
             setItem(response.data[0]);
@@ -85,7 +85,7 @@ export default function EditItem() {
     form.append("description", event.target.description.value);
 
     axios
-      .put(`https://api.circlemarket.ca/api/post/editItem/${id}`, form)
+      .put(`${REACT_APP_API_URL}/api/post/editItem/${id}`, form)
       .then((response) => {
         console.log(response.data);
         alert("Post Edited!");
