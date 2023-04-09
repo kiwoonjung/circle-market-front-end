@@ -16,7 +16,7 @@ export default function CommentList() {
 
   const getComments = async () => {
     await axios
-      .get(`${process.env.REACT_APP_API_URL}/api/post/findAllComments/${id}`)
+      .get(`https://api.circlemarket.ca/api/post/findAllComments/${id}`)
       .then((response) => {
         setComments(response.data[0].comments);
       })
@@ -29,7 +29,7 @@ export default function CommentList() {
     (
       getComments = async () => {
         await axios
-          .get(`${process.env.REACT_APP_API_URL}/api/post/findAllComments/${id}`)
+          .get(`https://api.circlemarket.ca/api/post/findAllComments/${id}`)
           .then((response) => {
             setComments(response.data[0].comments);
           })
@@ -60,7 +60,7 @@ export default function CommentList() {
     const decode = jwt_decode(jwtToken);
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`, {
+      .get(`https://api.circlemarket.ca/api/auth/findOneUser/${decode.id}`, {
         headers: {
           Authorization: `Bearer ${jwtToken}`,
         },
@@ -90,7 +90,10 @@ export default function CommentList() {
       timestamp: Date.now(),
     };
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/post/addComment/${id}`, commentForm)
+      .post(
+        `https://api.circlemarket.ca/api/post/addComment/${id}`,
+        commentForm
+      )
       .then((response) => {
         alert("Thank you for comment!");
         getComments();
