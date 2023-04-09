@@ -16,7 +16,7 @@ export default function CommentList() {
 
   const getComments = async () => {
     await axios
-      .get(`${REACT_APP_API_URL}/api/post/findAllComments/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/api/post/findAllComments/${id}`)
       .then((response) => {
         setComments(response.data[0].comments);
       })
@@ -29,7 +29,9 @@ export default function CommentList() {
     (
       getComments = async () => {
         await axios
-          .get(`${REACT_APP_API_URL}/api/post/findAllComments/${id}`)
+          .get(
+            `${process.env.REACT_APP_API_URL}/api/post/findAllComments/${id}`
+          )
           .then((response) => {
             setComments(response.data[0].comments);
           })
@@ -60,11 +62,14 @@ export default function CommentList() {
     const decode = jwt_decode(jwtToken);
 
     axios
-      .get(`${REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`, {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      })
+      .get(
+        `${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      )
       .then((response) => {
         // console.log(response);
         setUserId(response.data[0]._id);
@@ -90,7 +95,10 @@ export default function CommentList() {
       timestamp: Date.now(),
     };
     axios
-      .post(`${REACT_APP_API_URL}/api/post/addComment/${id}`, commentForm)
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/post/addComment/${id}`,
+        commentForm
+      )
       .then((response) => {
         alert("Thank you for comment!");
         getComments();

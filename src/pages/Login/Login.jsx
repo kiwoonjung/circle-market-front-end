@@ -17,13 +17,13 @@ export default function Login() {
     const email = event.target[0].value;
     const password = event.target[1].value;
 
-    console.log(REACT_APP_API_URL);
+    console.log(process.env.REACT_APP_API_URL);
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
       event.preventDefault();
       axios
-        .post(`${REACT_APP_API_URL}/api/auth/signin`, {
+        .post(`${process.env.REACT_APP_API_URL}/api/auth/signin`, {
           email: event.target.email.value,
           password: event.target.password.value,
         })

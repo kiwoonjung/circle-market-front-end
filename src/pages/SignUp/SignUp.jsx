@@ -77,12 +77,15 @@ export default function SignUp() {
             await setDoc(doc(db, "userChats", res.user.uid), {});
 
             //CREATE A NEW USER TO MONGO DB
-            await axios.post(`${REACT_APP_API_URL}/api/auth/signup`, {
-              email: useremail,
-              name: username,
-              password: userpassword,
-              imageUrl: file ? downloadURL : null,
-            });
+            await axios.post(
+              `${process.env.REACT_APP_API_URL}/api/auth/signup`,
+              {
+                email: useremail,
+                name: username,
+                password: userpassword,
+                imageUrl: file ? downloadURL : null,
+              }
+            );
             alert("New user Added!");
             navigate("/");
           } catch (err) {
