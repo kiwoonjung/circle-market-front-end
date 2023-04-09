@@ -17,13 +17,13 @@ export default function Login() {
     const email = event.target[0].value;
     const password = event.target[1].value;
 
-    console.log(process.env.REACT_APP_API_URL)
+    console.log("https://api.circlemarket.ca");
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
       event.preventDefault();
       axios
-        .post(`${process.env.REACT_APP_API_URL}/api/auth/signin`, {
+        .post(`https://api.circlemarket.ca/api/auth/signin`, {
           email: event.target.email.value,
           password: event.target.password.value,
         })

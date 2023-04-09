@@ -45,14 +45,11 @@ export default function AddItem() {
     const decode = jwt_decode(jwtToken);
 
     await axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        }
-      )
+      .get(`https://api.circlemarket.ca/api/auth/findOneUser/${decode.id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         setUserId(response.data[0]._id);
         setUsername(response.data[0].name);
@@ -80,7 +77,7 @@ export default function AddItem() {
     form.append("description", event.target.description.value);
 
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/api/post/add`, form, {
+      .post(`https://api.circlemarket.ca/api/post/add`, form, {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((response) => {
