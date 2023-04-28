@@ -51,7 +51,7 @@ export default function ItemDetails() {
 
   const getSingleUser = async (userId) => {
     await axios
-      .get(`${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${userId}`)
+      .get(`https://api.circlemarket.ca/api/auth/findOneUser/${userId}`)
       .then((response) => {
         setUserName(response.data[0].name);
         if (response.data[0].imageUrl) {
@@ -83,7 +83,7 @@ export default function ItemDetails() {
     (
       getSinglePost = async () => {
         await axios
-          .get(`${process.env.REACT_APP_API_URL}/api/post/findOnePost/${id}`)
+          .get(`https://api.circlemarket.ca/api/post/findOnePost/${id}`)
           .then((response) => {
             setItemImage(response.data[0].imageUrl);
             setItem(response.data[0]);
