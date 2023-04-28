@@ -37,7 +37,7 @@ export default function Profile() {
     (
       getSingleUser = async () => {
         await axios
-          .get(`${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${id}`)
+          .get(`https://api.circlemarket.ca/api/auth/findOneUser/${id}`)
           .then((response) => {
             setUser(response.data[0].name);
             setUserEmail(response.data[0].email);

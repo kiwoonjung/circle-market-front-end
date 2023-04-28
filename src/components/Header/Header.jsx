@@ -37,14 +37,11 @@ export default function Header() {
     const decode = jwt_decode(jwtToken);
 
     axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/api/auth/findOneUser/${decode.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        }
-      )
+      .get(`https://api.circlemarket.ca/api/auth/findOneUser/${decode.id}`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setLoggedIn(true);
